@@ -17,10 +17,6 @@ class BTNode{
         BTNode(const int value) : key(value), degree(0), parent(NULL), left_child(NULL), right_sibling(NULL), left_sibling(NULL){};
         
         int GetKey(){return key;};
-
-        //debug
-        BTNode* GetLeftSibling(){return left_sibling;};
-        BTNode* GetRightSibling(){return right_sibling;};
         friend class Binomial_Heap;
 };
 
