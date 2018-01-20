@@ -1,4 +1,3 @@
-
 #declare variable
 CC = g++
 INCLUDE_FILES = ./include
