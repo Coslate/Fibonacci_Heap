@@ -24,8 +24,8 @@ int main(){
     Fibonacci_Heap H2;
     Fibonacci_Heap H3;
 
-//    BTNode* min_ptr;
-//    BTNode* ans_node = NULL;
+//    FTNode* min_ptr;
+//    FTNode* ans_node = NULL;
 
 
     return EXIT_SUCCESS;
