@@ -41,7 +41,7 @@ Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(){$/;"	f	class:Fibonacci_Heap
-_Fibonacci_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
+_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
 degree	./include/Fibonacci_Heap.h	/^        int degree;$/;"	m	class:FTNode
 head_root_list	./include/Fibonacci_Heap.h	/^        FTNode* head_root_list;$/;"	m	class:Fibonacci_Heap
 key	./include/Fibonacci_Heap.h	/^        int key;$/;"	m	class:FTNode

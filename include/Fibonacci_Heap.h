@@ -1,5 +1,5 @@
-#ifndef _Fibonacci_HEAP_H_
-#define _Fibonacci_HEAP_H_
+#ifndef _FIBONACCI_HEAP_H_
+#define _FIBONACCI_HEAP_H_
 #include <cstdlib>
 
 class Fibonacci_Heap;
