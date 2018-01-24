@@ -10,10 +10,10 @@ Fibonacci_Heap::~Fibonacci_Heap(){
     std::queue<FTNode*> child_root_queue;
 
     while(current_root_node != NULL){
-        FTNode* current_left_child = current_root_node->left_child;
-        while(current_left_child != NULL){
-            child_root_queue.push(current_left_child);
-            current_left_child = current_left_child->left_child;
+        FTNode* current_child = current_root_node->child;
+        while(current_child != NULL){
+            child_root_queue.push(current_child);
+            current_child = current_child->child;
         }
 
         while(!child_root_queue.empty()){
@@ -150,12 +150,12 @@ void Fibonacci_Heap::UpdateMinPtr(){
 
 void Fibonacci_Heap::Link(FTNode* y, FTNode* z){
     y->parent = z;
-    y->right_sibling = z->left_child;
+    y->right_sibling = z->child;
     y->left_sibling = NULL;
-    if(z->left_child != NULL){
-        z->left_child->left_sibling = y;
+    if(z->child != NULL){
+        z->child->left_sibling = y;
     }
-    z->left_child = y;
+    z->child = y;
     z->degree += 1;
     root_list_size -= 1;
 }
@@ -166,10 +166,10 @@ void Fibonacci_Heap::Traverse(){
     int count_root = 0;
 
     while(current_root_node != NULL){
-        FTNode* current_left_child = current_root_node->left_child;
-        while(current_left_child != NULL){
-            child_root_queue.push(current_left_child);
-            current_left_child = current_left_child->left_child;
+        FTNode* current_child = current_root_node->child;
+        while(current_child != NULL){
+            child_root_queue.push(current_child);
+            current_child = current_child->child;
         }
 
         //print
@@ -200,7 +200,7 @@ void Fibonacci_Heap::Traverse(){
 
 void Fibonacci_Heap::InsertArbitrary(const int key){
     Fibonacci_Heap* H_inserted = new Fibonacci_Heap();
-    FTNode* inserted_node = new FTNode(key, 0);
+    FTNode* inserted_node = new FTNode(key);
     H_inserted->root_list_size += 1;
     H_inserted->head_root_list = inserted_node;
     
@@ -228,8 +228,8 @@ FTNode* Fibonacci_Heap::ExtractMin(){
         return NULL;
     }
 
-    FTNode* min_child = min_pointer->left_child;
-    FTNode* current_child = min_pointer->left_child;
+    FTNode* min_child = min_pointer->child;
+    FTNode* current_child = min_pointer->child;
     FTNode* child_new_head = NULL;
     FTNode* last_node = NULL;
     FTNode* min_ptr = min_pointer;
@@ -312,8 +312,8 @@ FTNode* Fibonacci_Heap::Search(const int key){
             if(current_node->key == key){
                 ans_node = current_node;
                 break;
-            }else if((current_node->key < key) && (current_node->left_child != NULL)){
-                child_root_queue.push(current_node->left_child);
+            }else if((current_node->key < key) && (current_node->child != NULL)){
+                child_root_queue.push(current_node->child);
             }
                 
             current_node = current_node->right_sibling;
@@ -342,15 +342,15 @@ void Fibonacci_Heap::ExchangeSatelliteInfo(FTNode* const x, FTNode* const y){
 void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){
     FTNode* tmp = new FTNode();
     tmp->parent = y->parent;
-    tmp->left_child = y->left_child;
+    tmp->child = y->child;
     tmp->left_sibling = y->left_sibling;
     tmp->right_sibling = y->right_sibling;
     tmp->degree = y->degree;
 
     //Replace x with y. x is the parent of y
     if(x->parent != NULL){
-        if(x->parent->left_child == x){
-            x->parent->left_child = y;
+        if(x->parent->child == x){
+            x->parent->child = y;
         }   
     }
     if(x->right_sibling != NULL){
@@ -359,10 +359,10 @@ void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){
     if(x->left_sibling != NULL){
         x->left_sibling->right_sibling = y;
     }
-    if(x->left_child == y){
-        y->left_child = x;
+    if(x->child == y){
+        y->child = x;
     }else{
-        y->left_child = x->left_child;
+        y->child = x->child;
     }
     y->right_sibling = x->right_sibling;
     y->left_sibling = x->left_sibling;
@@ -376,19 +376,19 @@ void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){
     if(tmp->left_sibling != NULL){
         tmp->left_sibling->right_sibling = x;
     }
-    if(tmp->left_child != NULL){
-        FTNode* current_tmp_child = tmp->left_child;
+    if(tmp->child != NULL){
+        FTNode* current_tmp_child = tmp->child;
         while(current_tmp_child != NULL){
             current_tmp_child->parent = x;
             current_tmp_child = current_tmp_child->right_sibling;
         }
     }
-    x->left_child = tmp->left_child;
+    x->child = tmp->child;
     x->right_sibling = tmp->right_sibling;
     x->left_sibling = tmp->left_sibling;
     x->degree = tmp->degree;
 
-    FTNode* current_y_child = y->left_child;
+    FTNode* current_y_child = y->child;
     while(current_y_child != NULL){
         current_y_child->parent = y;
         current_y_child = current_y_child->right_sibling;

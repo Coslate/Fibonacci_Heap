@@ -1,0 +1,8 @@
+rm -rf ../exec_output/Fibonacci_Heap.o
+rm -rf ../exec_output/Fibonacci_Heap_main.o
+rm -rf ./tags
+g++ -g -Wall -O3  -c Fibonacci_Heap.cpp -I ./include -o ../exec_output/Fibonacci_Heap.o
+ctags -R ./*
+ctags -a ./include/*
+g++ -g -Wall -O3  -I ./include ../exec_output/Fibonacci_Heap.o Fibonacci_Heap_main.cpp -o ../exec_output/Fibonacci_Heap_main.o
+../exec_output/Fibonacci_Heap_main.o

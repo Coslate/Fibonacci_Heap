@@ -7,14 +7,15 @@ class Fibonacci_Heap;
 class FTNode{
         int key;
         int degree;
+        int mark;
         FTNode* parent;
-        FTNode* left_child;
+        FTNode* child;
         FTNode* right_sibling;
         FTNode* left_sibling;
     public : 
-        FTNode() : key(0), degree(0), parent(NULL), left_child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value1, const int value2) : key(value1), degree(value2), parent(NULL), left_child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value) : key(value), degree(0), parent(NULL), left_child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode() : key(0), degree(0), mark(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode(const int value1, const int value2, const int value3) : key(value1), degree(value2), mark(value3), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode(const int value) : key(value), degree(0), mark(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
         
         int GetKey(){return key;};
         friend class Fibonacci_Heap;
@@ -22,6 +23,7 @@ class FTNode{
 
 class Fibonacci_Heap{
         int root_list_size;
+        int total_node_num;
         FTNode* head_root_list;
         FTNode* min_pointer;
 
@@ -33,7 +35,7 @@ class Fibonacci_Heap{
         void UpdateMinPtr();
 
     public : 
-        Fibonacci_Heap() : root_list_size(0), head_root_list(NULL){};
+        Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};
         ~Fibonacci_Heap();
        
         bool    Delete(FTNode* const x);
