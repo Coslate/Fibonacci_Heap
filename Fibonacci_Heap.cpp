@@ -199,27 +199,49 @@ void Fibonacci_Heap::Traverse(){
 }
 
 void Fibonacci_Heap::InsertArbitrary(const int key){
-    Fibonacci_Heap* H_inserted = new Fibonacci_Heap();
     FTNode* inserted_node = new FTNode(key);
-    H_inserted->root_list_size += 1;
-    H_inserted->head_root_list = inserted_node;
-    
-    Union(*H_inserted);
-    delete H_inserted;
+    if(min_pointer == NULL){
+        min_pointer = inserted_node;
+        min_pointer->right_sibling = min_pointer;
+        min_pointer->left_sibling = min_pointer;
+    }else{
+        FTNode* min_left_node = min_pointer->left_sibling;
+        inserted_node->left_sibling = min_left_node;
+        inserted_node->right_sibling = min_pointer;
+        min_left_node->right_sibling = inserted_node;
+        min_pointer->left_sibling = inserted_node;
+
+        if(min_pointer->key > inserted_node->key){
+            min_pointer = inserted_node;
+        }
+    }
+    ++root_list_size;
+    ++total_node_num;
 }
 
 void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){
-    if(inserted_node->right_sibling != NULL){
+    if(inserted_node->right_sibling != inserted_node){
         std::cout<<"Error : The inserted_node should be the single node."<<std::endl;
         return;
     }
 
-    Fibonacci_Heap* H_inserted = new Fibonacci_Heap();
-    H_inserted->root_list_size += 1;
-    H_inserted->head_root_list = inserted_node;
+    if(min_pointer == NULL){
+        min_pointer = inserted_node;
+        min_pointer->right_sibling = min_pointer;
+        min_pointer->left_sibling = min_pointer;
+    }else{
+        FTNode* min_left_node = min_pointer->left_sibling;
+        inserted_node->left_sibling = min_left_node;
+        inserted_node->right_sibling = min_pointer;
+        min_left_node->right_sibling = inserted_node;
+        min_pointer->left_sibling = inserted_node;
 
-    Union(*H_inserted);
-    delete H_inserted;
+        if(min_pointer->key > inserted_node->key){
+            min_pointer = inserted_node;
+        }
+    }
+    ++root_list_size;
+    ++total_node_num;
 }
 
 FTNode* Fibonacci_Heap::ExtractMin(){
