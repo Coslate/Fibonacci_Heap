@@ -167,9 +167,8 @@ void Fibonacci_Heap::Traverse(){
 
     while(current_root_node != NULL){
         FTNode* current_child = current_root_node->child;
-        while(current_child != NULL){
+        if(current_child != NULL){
             child_root_queue.push(current_child);
-            current_child = current_child->child;
         }
 
         //print
@@ -180,15 +179,27 @@ void Fibonacci_Heap::Traverse(){
         std::cout<<"-----------------------"<<std::endl;
         while(!child_root_queue.empty()){
             FTNode* current_child_node = child_root_queue.front();
-            while(current_child_node != NULL){
-                if(current_child_node->right_sibling == NULL){
+            FTNode* start_node = current_child_node;
+            int first_node = 1;
+            child_root_queue.pop();
+
+            while((current_child_node != start_node) || (first_node == 1)){
+                if(current_child_node->right_sibling == start_node){
                     std::cout<<"("<<current_child_node->key<<", "<<current_child_node<<", "<<current_child_node->degree<<")"<<std::endl;
                 }else{
                     std::cout<<"("<<current_child_node->key<<", "<<current_child_node<<", "<<current_child_node->degree<<"), ";
-                }               
+                }
+
+                if(current_child_node->child != NULL){
+                    child_root_queue.push(current_child_node->child)
+                }
+
                 current_child_node = current_child_node->right_sibling;
+                if(first_node == 1){
+                    first_node = 0;
+                }
             }
-            child_root_queue.pop();
+
             if(!child_root_queue.empty()){
                 std::cout<<"-----------------------"<<std::endl;
             }
@@ -204,12 +215,14 @@ void Fibonacci_Heap::InsertArbitrary(const int key){
         min_pointer = inserted_node;
         min_pointer->right_sibling = min_pointer;
         min_pointer->left_sibling = min_pointer;
+        head_root_list = min_pointer;
     }else{
         FTNode* min_left_node = min_pointer->left_sibling;
         inserted_node->left_sibling = min_left_node;
         inserted_node->right_sibling = min_pointer;
         min_left_node->right_sibling = inserted_node;
         min_pointer->left_sibling = inserted_node;
+        head_root_list = head_root_list->left_sibling;
 
         if(min_pointer->key > inserted_node->key){
             min_pointer = inserted_node;
@@ -229,12 +242,14 @@ void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){
         min_pointer = inserted_node;
         min_pointer->right_sibling = min_pointer;
         min_pointer->left_sibling = min_pointer;
+        head_root_list = min_pointer;
     }else{
         FTNode* min_left_node = min_pointer->left_sibling;
         inserted_node->left_sibling = min_left_node;
         inserted_node->right_sibling = min_pointer;
         min_left_node->right_sibling = inserted_node;
         min_pointer->left_sibling = inserted_node;
+        head_root_list = head_root_list->left_sibling;
 
         if(min_pointer->key > inserted_node->key){
             min_pointer = inserted_node;
