@@ -24,6 +24,6 @@ int main(){
     Fibonacci_Heap H2;
     Fibonacci_Heap H3;
 
-
+    H1.Traverse(3);
     return EXIT_SUCCESS;
 }

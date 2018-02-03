@@ -2,33 +2,14 @@
 #include <cstdio>
 #include <queue>
 #include <stack>
+#include <vector>
 #include <climits>
+#include <iomanip>
+#include <boost/format.hpp>
 #include <Fibonacci_Heap.h>
 
 Fibonacci_Heap::~Fibonacci_Heap(){
-    FTNode* current_root_node = head_root_list;
-    std::queue<FTNode*> child_root_queue;
-
-    while(current_root_node != NULL){
-        FTNode* current_child = current_root_node->child;
-        while(current_child != NULL){
-            child_root_queue.push(current_child);
-            current_child = current_child->child;
-        }
-
-        while(!child_root_queue.empty()){
-            FTNode* current_child_node = child_root_queue.front();
-            while(current_child_node != NULL){
-                FTNode* tmp_child_node = current_child_node;
-                current_child_node = current_child_node->right_sibling;
-                delete tmp_child_node;
-            }
-            child_root_queue.pop();
-        }
-        FTNode* tmp_node = current_root_node;
-        current_root_node = current_root_node->right_sibling;
-        delete tmp_node;
-    }
+    std::cout<<"It is destruvtor."<<std::endl;
 }
 
 void Fibonacci_Heap::Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Heap &H_merged){
@@ -160,11 +141,181 @@ void Fibonacci_Heap::Link(FTNode* y, FTNode* z){
     root_list_size -= 1;
 }
 
-void Fibonacci_Heap::Traverse(){
-    FTNode* current_root_node = head_root_list;
-    std::queue<FTNode*> child_root_queue;
-    int count_root = 0;
+int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int depth){
+    FTNode* current_traverse_node = current_child_node;
+    int start_pt = 0;
+    int find_depth = depth;
+    int find_depth_max = find_depth;
 
+    while((current_traverse_node != current_child_node) || (start_pt == 0)){
+        if(current_traverse_node->child != NULL){
+            find_depth = CalculateDepth(current_traverse_node->child, depth+1);
+            if(find_depth > find_depth_max){
+                find_depth_max = find_depth;
+            }
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+    }
+
+    return find_depth_max;
+}
+
+void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){
+    FTNode* current_traverse_node = current_child_node;
+    int start_pt = 0;
+
+    while((current_traverse_node != current_child_node) || (start_pt == 0)){
+        node_map[depth].push_back(current_traverse_node);
+        if(current_traverse_node->child != NULL){
+            SetNodeMap(current_traverse_node->child, depth+1, node_map);
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+    }
+}
+
+void Fibonacci_Heap::BuildTestExample(){
+    FTNode* seven_node = new FTNode(7);
+    FTNode* seventeen_node = new FTNode(17);
+    FTNode* three_node = new FTNode(3);
+    FTNode* eighteen_node = new FTNode(18);
+    FTNode* fifty_two_node = new FTNode(52);
+    FTNode* thirty_eight_node = new FTNode(38);
+    FTNode* thirty_nine_node = new FTNode(39);
+    FTNode* forty_one_node = new FTNode(41);
+    FTNode* forty_two_node = new FTNode(42);
+    FTNode* forty_three_node = new FTNode(43);
+    FTNode* forty_four_node = new FTNode(44);
+    FTNode* sixty_nine_node = new FTNode(69);
+   
+    std::cout<<"("<<seven_node->key<<", "<<seven_node<<")"<<std::endl;
+    std::cout<<"("<<seventeen_node->key<<", "<<seventeen_node<<")"<<std::endl;
+    std::cout<<"("<<three_node->key<<", "<<three_node<<")"<<std::endl;
+    std::cout<<"("<<eighteen_node->key<<", "<<eighteen_node<<")"<<std::endl;
+    std::cout<<"("<<fifty_two_node->key<<", "<<fifty_two_node<<")"<<std::endl;
+    std::cout<<"("<<thirty_eight_node->key<<", "<<thirty_eight_node<<")"<<std::endl;
+    std::cout<<"("<<thirty_nine_node->key<<", "<<thirty_nine_node<<")"<<std::endl;
+    std::cout<<"("<<forty_one_node->key<<", "<<forty_one_node<<")"<<std::endl;
+    std::cout<<"("<<forty_two_node->key<<", "<<forty_two_node<<")"<<std::endl;
+    std::cout<<"("<<forty_three_node->key<<", "<<forty_three_node<<")"<<std::endl;
+    std::cout<<"("<<forty_four_node->key<<", "<<forty_four_node<<")"<<std::endl;
+    std::cout<<"("<<sixty_nine_node->key<<", "<<sixty_nine_node<<")"<<std::endl;
+
+    three_node->child = fifty_two_node;
+    three_node->right_sibling = seventeen_node;
+    three_node->left_sibling = seven_node;
+    three_node->degree = 3;
+
+    seven_node->right_sibling = three_node;
+    seven_node->left_sibling = seventeen_node;
+
+    seventeen_node->right_sibling = seven_node;
+    seventeen_node->left_sibling = three_node;
+
+    eighteen_node->parent = three_node;
+    eighteen_node->child = thirty_nine_node;
+    eighteen_node->right_sibling = fifty_two_node;
+    eighteen_node->left_sibling = thirty_eight_node;
+    eighteen_node->degree = 1;
+
+    fifty_two_node->parent = three_node;
+    fifty_two_node->right_sibling = thirty_eight_node;
+    fifty_two_node->left_sibling = eighteen_node;
+
+    thirty_eight_node->parent = three_node;
+    thirty_eight_node->child = forty_one_node;
+    thirty_eight_node->right_sibling = eighteen_node;
+    thirty_eight_node->left_sibling = fifty_two_node;
+    thirty_eight_node->degree = 1;
+
+    forty_one_node->parent = thirty_eight_node;
+    forty_one_node->child = forty_two_node;
+    forty_one_node->right_sibling = forty_one_node;
+    forty_one_node->left_sibling = forty_one_node;
+    forty_one_node->degree = 1;
+
+    forty_two_node->parent = forty_one_node;
+    forty_two_node->child = forty_three_node;
+    forty_two_node->left_sibling = forty_two_node;
+    forty_two_node->right_sibling = forty_two_node;
+    forty_two_node->degree = 1;
+
+    forty_three_node->parent = forty_two_node;
+    forty_three_node->child = forty_four_node;
+    forty_three_node->left_sibling = forty_three_node;
+    forty_three_node->right_sibling = forty_three_node;
+    forty_three_node->degree = 1;
+    
+    forty_four_node->parent = forty_three_node;
+    forty_four_node->left_sibling = forty_four_node;
+    forty_four_node->right_sibling = forty_four_node;
+    
+    thirty_nine_node->parent = eighteen_node;
+    thirty_nine_node->child = sixty_nine_node;
+    thirty_nine_node->right_sibling = thirty_nine_node;
+    thirty_nine_node->left_sibling = thirty_nine_node;
+    thirty_nine_node->degree = 1;
+
+    sixty_nine_node->parent = thirty_nine_node;
+    sixty_nine_node->right_sibling = sixty_nine_node;
+    sixty_nine_node->left_sibling = sixty_nine_node;
+
+    head_root_list = seven_node;
+    min_pointer = three_node;
+    root_list_size = 3;
+}
+
+void Fibonacci_Heap::PrintList(FTNode* const head_ptr){
+    FTNode* current_traverse_node = head_ptr;
+    int start_pt = 0;
+
+    while((current_traverse_node != head_ptr) || (start_pt == 0)){
+        if(current_traverse_node->right_sibling == head_ptr){
+            std::cout<<"("<<current_traverse_node->key<<", "<<current_traverse_node<<")";
+        }else{
+            std::cout<<"("<<current_traverse_node->key<<", "<<current_traverse_node<<")"<<"--";
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+    }
+}
+
+void Fibonacci_Heap::Traverse(const int print_width){
+    //int count_root = 0;
+    int depth_max = 0;
+
+    BuildTestExample();
+    depth_max = CalculateDepth(head_root_list, 0);
+    std::cout<<"depth_max = "<<depth_max<<std::endl;
+    std::vector<FTNode*>* node_map = new std::vector<FTNode*> [depth_max+1];
+
+    SetNodeMap(head_root_list, 0, node_map);
+
+    for(size_t i=0;i<node_map[0].size();++i){
+        std::cout<<"##################################"<<std::endl;
+        std::cout<<"#########      F"<<i<<"      ###########"<<std::endl;
+        std::cout<<"##################################"<<std::endl;
+//        std::cout<<"("<<node_map[0][i]->key<<std::setw(4)<<","<<std::setw(1)<<node_map[0][i]<<","<<std::setw(1)<<node_map[0][i]->degree<<std::setw(4)<<")"<<std::endl;
+        printf("(%*d, %-p, %*d)\n", print_width,  node_map[0][i]->key, node_map[0][i], print_width, node_map[0][i]->degree);
+
+        if(node_map[0][i]->child != NULL){
+            PrintList(node_map[0][i]->child);
+            std::cout<<std::endl;
+        }
+    }
+
+
+/*
     while(current_root_node != NULL){
         FTNode* current_child = current_root_node->child;
         if(current_child != NULL){
@@ -191,7 +342,7 @@ void Fibonacci_Heap::Traverse(){
                 }
 
                 if(current_child_node->child != NULL){
-                    child_root_queue.push(current_child_node->child)
+                    child_root_queue.push(current_child_node->child);
                 }
 
                 current_child_node = current_child_node->right_sibling;
@@ -207,6 +358,7 @@ void Fibonacci_Heap::Traverse(){
         current_root_node = current_root_node->right_sibling;
         ++count_root;
     }
+*/
 }
 
 void Fibonacci_Heap::InsertArbitrary(const int key){

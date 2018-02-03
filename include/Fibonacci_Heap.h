@@ -1,6 +1,7 @@
 #ifndef _FIBONACCI_HEAP_H_
 #define _FIBONACCI_HEAP_H_
 #include <cstdlib>
+#include <vector>
 
 class Fibonacci_Heap;
 
@@ -17,7 +18,7 @@ class FTNode{
         FTNode(const int value1, const int value2, const int value3) : key(value1), degree(value2), mark(value3), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
         FTNode(const int value) : key(value), degree(0), mark(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
         
-        int GetKey(){return key;};
+        inline int GetKey(){return key;};
         friend class Fibonacci_Heap;
 };
 
@@ -33,23 +34,27 @@ class Fibonacci_Heap{
         void ExchangeSatelliteInfo(FTNode* const x, FTNode* const y);//Now only has one satellite : key. The function is used in DecreasekeySatellite.
         void ExchangeNodePos(FTNode* const x, FTNode* const y);//Used in Decreasekey()
         void UpdateMinPtr();
+        int  CalculateDepth(FTNode* const current_child_node, const int depth);
+        void SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map);
+        void BuildTestExample();
+        void PrintList(FTNode* const head_ptr);
 
     public : 
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};
         ~Fibonacci_Heap();
        
-        bool    Delete(FTNode* const x);
-        bool    DecreaseKey(FTNode* const x, const int changed_key);//Use the address as the index. Everytime the node bubble up, the node will exchange the position, and all the corresponding children will change the parent, which takes O(n).
-        bool    DecreaseKeySatellite(FTNode* const x, const int changed_key);//Use the key as the index. DecreasekeySatellite needs to be used with Search(const int key), or the address of one parrent node may change, and afterward Decreasekey will decrease the wrong node with address.
-        FTNode* Search(const int key); // Takes O(n).
-        FTNode* ExtractMin();
-        void    Traverse();
-        int     FindMin();
-        void    InsertArbitrary(const int key);
-        void    InsertArbitrary(FTNode* const inserted_node);
-        void    Union(Fibonacci_Heap &H_in);
-        FTNode* GetHeadRootList(){return head_root_list;};
-        int     GetRootListSize(){return root_list_size;};
+        bool           Delete(FTNode* const x);
+        bool           DecreaseKey(FTNode* const x, const int changed_key);//Use the address as the index. Everytime the node bubble up, the node will exchange the position, and all the corresponding children will change the parent, which takes O(n).
+        bool           DecreaseKeySatellite(FTNode* const x, const int changed_key);//Use the key as the index. DecreasekeySatellite needs to be used with Search(const int key), or the address of one parrent node may change, and afterward Decreasekey will decrease the wrong node with address.
+        FTNode*        Search(const int key); // Takes O(n).
+        FTNode*        ExtractMin();
+        void           Traverse(const int print_width);
+        int            FindMin();
+        void           InsertArbitrary(const int key);
+        void           InsertArbitrary(FTNode* const inserted_node);
+        void           Union(Fibonacci_Heap &H_in);
+        inline FTNode* GetHeadRootList(){return head_root_list;};
+        inline int     GetRootListSize(){return root_list_size;};
 };
 
 #endif
