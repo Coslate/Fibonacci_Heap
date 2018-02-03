@@ -184,6 +184,7 @@ void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int dept
 void Fibonacci_Heap::BuildTestExample(){
     FTNode* seven_node = new FTNode(7);
     FTNode* seventeen_node = new FTNode(17);
+    FTNode* thirty_node = new FTNode(30);
     FTNode* three_node = new FTNode(3);
     FTNode* eighteen_node = new FTNode(18);
     FTNode* fifty_two_node = new FTNode(52);
@@ -194,9 +195,14 @@ void Fibonacci_Heap::BuildTestExample(){
     FTNode* forty_three_node = new FTNode(43);
     FTNode* forty_four_node = new FTNode(44);
     FTNode* sixty_nine_node = new FTNode(69);
+    FTNode* twenty_four_node = new FTNode(24);
+    FTNode* twenty_six_node = new FTNode(26);
+    FTNode* forty_six_node = new FTNode(46);
+    FTNode* thirty_five_node = new FTNode(35);
    
     std::cout<<"("<<seven_node->key<<", "<<seven_node<<")"<<std::endl;
     std::cout<<"("<<seventeen_node->key<<", "<<seventeen_node<<")"<<std::endl;
+    std::cout<<"("<<thirty_node->key<<", "<<thirty_node<<")"<<std::endl;
     std::cout<<"("<<three_node->key<<", "<<three_node<<")"<<std::endl;
     std::cout<<"("<<eighteen_node->key<<", "<<eighteen_node<<")"<<std::endl;
     std::cout<<"("<<fifty_two_node->key<<", "<<fifty_two_node<<")"<<std::endl;
@@ -216,8 +222,33 @@ void Fibonacci_Heap::BuildTestExample(){
     seven_node->right_sibling = three_node;
     seven_node->left_sibling = seventeen_node;
 
-    seventeen_node->right_sibling = seven_node;
+    seventeen_node->child = thirty_node;
+    seventeen_node->right_sibling = twenty_four_node;
     seventeen_node->left_sibling = three_node;
+    seventeen_node->degree = 1;
+
+    thirty_node->parent = seventeen_node;
+    thirty_node->right_sibling = thirty_node;
+    thirty_node->left_sibling = thirty_node;
+
+    twenty_four_node->child = twenty_six_node;
+    twenty_four_node->right_sibling = seven_node;
+    twenty_four_node->left_sibling = seventeen_node;
+    twenty_four_node->degree = 2;
+
+    twenty_six_node->parent = twenty_four_node;
+    twenty_six_node->child = thirty_five_node;
+    twenty_six_node->right_sibling = forty_six_node;
+    twenty_six_node->left_sibling = forty_six_node;
+    twenty_six_node->degree = 1;
+
+    forty_six_node->parent = twenty_four_node;
+    forty_six_node->right_sibling = twenty_six_node;
+    forty_six_node->left_sibling = twenty_six_node;
+
+    thirty_five_node->parent = twenty_six_node;
+    thirty_five_node->right_sibling = thirty_five_node;
+    thirty_five_node->left_sibling = thirty_five_node;
 
     eighteen_node->parent = three_node;
     eighteen_node->child = thirty_nine_node;
@@ -296,9 +327,7 @@ void Fibonacci_Heap::Traverse(const int print_width){
 
     BuildTestExample();
     depth_max = CalculateDepth(head_root_list, 0);
-    std::cout<<"depth_max = "<<depth_max<<std::endl;
     std::vector<FTNode*>* node_map = new std::vector<FTNode*> [depth_max+1];
-
     SetNodeMap(head_root_list, 0, node_map);
 
     for(size_t i=0;i<node_map[0].size();++i){
@@ -315,7 +344,7 @@ void Fibonacci_Heap::Traverse(const int print_width){
             FTNode* current_parent = parent_queue.front();
                 
             if(current_parent->child != NULL){
-                if(current_parent->child->level - depth_grad >= 2){
+                if((current_parent->child->level - depth_grad) >= 2){
                     std::cout<<"-------------------------------------"<<std::endl;
                     ++depth_grad;
                 }
