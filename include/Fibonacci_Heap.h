@@ -2,6 +2,7 @@
 #define _FIBONACCI_HEAP_H_
 #include <cstdlib>
 #include <vector>
+#include <queue>
 
 class Fibonacci_Heap;
 
@@ -9,14 +10,15 @@ class FTNode{
         int key;
         int degree;
         int mark;
+        int level;
         FTNode* parent;
         FTNode* child;
         FTNode* right_sibling;
         FTNode* left_sibling;
     public : 
-        FTNode() : key(0), degree(0), mark(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value1, const int value2, const int value3) : key(value1), degree(value2), mark(value3), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value) : key(value), degree(0), mark(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode() : key(0), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode(const int value1, const int value2, const int value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode(const int value) : key(value), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
         
         inline int GetKey(){return key;};
         friend class Fibonacci_Heap;
@@ -37,7 +39,7 @@ class Fibonacci_Heap{
         int  CalculateDepth(FTNode* const current_child_node, const int depth);
         void SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map);
         void BuildTestExample();
-        void PrintList(FTNode* const head_ptr);
+        void PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue);
 
     public : 
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};
@@ -48,7 +50,7 @@ class Fibonacci_Heap{
         bool           DecreaseKeySatellite(FTNode* const x, const int changed_key);//Use the key as the index. DecreasekeySatellite needs to be used with Search(const int key), or the address of one parrent node may change, and afterward Decreasekey will decrease the wrong node with address.
         FTNode*        Search(const int key); // Takes O(n).
         FTNode*        ExtractMin();
-        void           Traverse(const int print_width);
+        void           Traverse(const int print_width = 3);
         int            FindMin();
         void           InsertArbitrary(const int key);
         void           InsertArbitrary(FTNode* const inserted_node);

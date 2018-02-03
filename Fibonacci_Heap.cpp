@@ -5,7 +5,6 @@
 #include <vector>
 #include <climits>
 #include <iomanip>
-#include <boost/format.hpp>
 #include <Fibonacci_Heap.h>
 
 Fibonacci_Heap::~Fibonacci_Heap(){
@@ -170,6 +169,7 @@ void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int dept
 
     while((current_traverse_node != current_child_node) || (start_pt == 0)){
         node_map[depth].push_back(current_traverse_node);
+        current_traverse_node->level = depth;
         if(current_traverse_node->child != NULL){
             SetNodeMap(current_traverse_node->child, depth+1, node_map);
         }
@@ -272,26 +272,26 @@ void Fibonacci_Heap::BuildTestExample(){
     root_list_size = 3;
 }
 
-void Fibonacci_Heap::PrintList(FTNode* const head_ptr){
+void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue){
     FTNode* current_traverse_node = head_ptr;
     int start_pt = 0;
 
-    while((current_traverse_node != head_ptr) || (start_pt == 0)){
+    while(((current_traverse_node != head_ptr) || (start_pt == 0)) && (head_ptr != NULL)){
         if(current_traverse_node->right_sibling == head_ptr){
-            std::cout<<"("<<current_traverse_node->key<<", "<<current_traverse_node<<")";
+            printf("(%*d, %-p, %*d)\n", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree);
         }else{
-            std::cout<<"("<<current_traverse_node->key<<", "<<current_traverse_node<<")"<<"--";
+            printf("(%*d, %-p, %*d)--", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree);
         }
 
         if(start_pt == 0){
             ++start_pt;
         }
+        parent_queue.push(current_traverse_node);
         current_traverse_node = current_traverse_node->right_sibling;
     }
 }
 
 void Fibonacci_Heap::Traverse(const int print_width){
-    //int count_root = 0;
     int depth_max = 0;
 
     BuildTestExample();
@@ -302,15 +302,28 @@ void Fibonacci_Heap::Traverse(const int print_width){
     SetNodeMap(head_root_list, 0, node_map);
 
     for(size_t i=0;i<node_map[0].size();++i){
+        std::queue<FTNode*> parent_queue;
+        int depth_grad = -1;
+
         std::cout<<"##################################"<<std::endl;
         std::cout<<"#########      F"<<i<<"      ###########"<<std::endl;
         std::cout<<"##################################"<<std::endl;
-//        std::cout<<"("<<node_map[0][i]->key<<std::setw(4)<<","<<std::setw(1)<<node_map[0][i]<<","<<std::setw(1)<<node_map[0][i]->degree<<std::setw(4)<<")"<<std::endl;
         printf("(%*d, %-p, %*d)\n", print_width,  node_map[0][i]->key, node_map[0][i], print_width, node_map[0][i]->degree);
 
-        if(node_map[0][i]->child != NULL){
-            PrintList(node_map[0][i]->child);
-            std::cout<<std::endl;
+        parent_queue.push(node_map[0][i]);
+        while(!parent_queue.empty()){
+            FTNode* current_parent = parent_queue.front();
+                
+            if(current_parent->child != NULL){
+                if(current_parent->child->level - depth_grad >= 2){
+                    std::cout<<"-------------------------------------"<<std::endl;
+                    ++depth_grad;
+                }
+                printf("(%*d, %-p, %*d)--> ", print_width,  current_parent->key, current_parent, print_width, current_parent->degree);
+                PrintList(current_parent->child, print_width, parent_queue);
+                FTNode* top_out_node = parent_queue.front();
+            }
+            parent_queue.pop();
         }
     }
 
