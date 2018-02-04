@@ -322,10 +322,13 @@ void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, st
     }
 }
 
-void Fibonacci_Heap::Traverse(const int print_width){
+void Fibonacci_Heap::Traverse(const int print_width, const bool debug){
     int depth_max = 0;
+    
+    if(debug){
+        BuildTestExample();
+    }
 
-    BuildTestExample();
     depth_max = CalculateDepth(head_root_list, 0);
     std::vector<FTNode*>* node_map = new std::vector<FTNode*> [depth_max+1];
     SetNodeMap(head_root_list, 0, node_map);

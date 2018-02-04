@@ -16,9 +16,9 @@ class FTNode{
         FTNode* right_sibling;
         FTNode* left_sibling;
     public : 
-        FTNode() : key(0), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value1, const int value2, const int value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
-        FTNode(const int value) : key(value), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(NULL), left_sibling(NULL){};
+        FTNode() : key(0), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value1, const int value2, const int value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value) : key(value), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
         
         inline int GetKey(){return key;};
         friend class Fibonacci_Heap;
@@ -50,7 +50,7 @@ class Fibonacci_Heap{
         bool           DecreaseKeySatellite(FTNode* const x, const int changed_key);//Use the key as the index. DecreasekeySatellite needs to be used with Search(const int key), or the address of one parrent node may change, and afterward Decreasekey will decrease the wrong node with address.
         FTNode*        Search(const int key); // Takes O(n).
         FTNode*        ExtractMin();
-        void           Traverse(const int print_width = 3);
+        void           Traverse(const int print_width = 3, const bool debug = false);
         int            FindMin();
         void           InsertArbitrary(const int key);
         void           InsertArbitrary(FTNode* const inserted_node);
