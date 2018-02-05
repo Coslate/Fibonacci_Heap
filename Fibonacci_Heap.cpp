@@ -77,6 +77,10 @@ void Fibonacci_Heap::Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Hea
 }
 
 void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
+    if(H_in.total_node_num == 0){
+        return;
+    }
+
     FTNode* start_node_H_in =  H_in.head_root_list;
     FTNode* last_node_H_in =  NULL;
     FTNode* current_node = H_in.min_pointer;
@@ -95,7 +99,15 @@ void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
             start_point = 1;
         }
     }
-    
+   
+    if(total_node_num == 0){
+        min_pointer = H_in.min_pointer;
+        root_list_size = H_in.root_list_size;
+        total_node_num = H_in.total_node_num;
+        head_root_list = H_in.head_root_list;
+        return;
+    } 
+
     //Find last node of this
     start_point = 0;
     current_node = min_pointer;
@@ -126,7 +138,11 @@ void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){
 }
 
 void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){
-    if(((H_in.min_pointer->key < min_pointer->key) && (H_in.min_pointer != NULL)) || (min_pointer == NULL)){
+    if(H_in.total_node_num == 0){
+        return;
+    }else if(total_node_num == 0){
+        min_pointer = H_in.min_pointer;
+    }else if(H_in.min_pointer->key < min_pointer->key){
         min_pointer = H_in.min_pointer;
     }
 }
@@ -149,7 +165,7 @@ int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int d
     int find_depth = depth;
     int find_depth_max = find_depth;
 
-    while((current_traverse_node != current_child_node) || (start_pt == 0)){
+    while((current_traverse_node != current_child_node) || (start_pt == 0) && (current_traverse_node != NULL)){
         if(current_traverse_node->child != NULL){
             find_depth = CalculateDepth(current_traverse_node->child, depth+1);
             if(find_depth > find_depth_max){
@@ -170,7 +186,7 @@ void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int dept
     FTNode* current_traverse_node = current_child_node;
     int start_pt = 0;
 
-    while((current_traverse_node != current_child_node) || (start_pt == 0)){
+    while(((current_traverse_node != current_child_node) || (start_pt == 0)) && (current_traverse_node != NULL)){
         node_map[depth].push_back(current_traverse_node);
         current_traverse_node->level = depth;
         if(current_traverse_node->child != NULL){

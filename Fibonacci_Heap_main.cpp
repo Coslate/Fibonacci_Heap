@@ -23,6 +23,7 @@ int main(){
     Fibonacci_Heap H1;
     Fibonacci_Heap H2;
     Fibonacci_Heap H3;
+    Fibonacci_Heap H4;
 
 
     std::cout<<"=====================================H1========================================="<<std::endl;
@@ -41,7 +42,12 @@ int main(){
     std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
-
+    std::cout<<"=====================================H2.Union(H3)========================================="<<std::endl;
+    H2.Union(H3);
+    H2.Traverse();
+    std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
+    std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H3========================================="<<std::endl;
     H3.InsertArbitrary(1);
     H3.InsertArbitrary(2);
@@ -57,6 +63,16 @@ int main(){
     std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
+    std::cout<<"=====================================H4========================================="<<std::endl;
+    H4.Traverse();
+
+    std::cout<<"=====================================H4.Union(H3)========================================="<<std::endl;
+    H4.Union(H3);
+    H4.Traverse();
+    std::cout<<"H4.total_node_num = "<<H4.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H4.root_list_size = "<<H4.GetRootListSize()<<std::endl;
+    std::cout<<"H4.min_pointer = "<<"("<<H4.FindMin()->GetKey()<<", "<<H4.FindMin()<<")"<<std::endl;
+
 
     return EXIT_SUCCESS;
 }
