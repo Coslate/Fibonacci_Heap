@@ -76,55 +76,58 @@ void Fibonacci_Heap::Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Hea
     H_merged.head_root_list = ret_head;
 }
 
-void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){
-    Merge(*this, H_in, *this);
-   
-    if(this->root_list_size == 0){
-        //Update the min_pointer;
-        UpdateMinPtr();
-        return;
-    }else{
-        FTNode* prev_x = NULL;
-        FTNode* x      = this->head_root_list;
-        FTNode* next_x = x->right_sibling;
+void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
+    FTNode* start_node_H_in =  H_in.head_root_list;
+    FTNode* last_node_H_in =  NULL;
+    FTNode* current_node = H_in.min_pointer;
+    FTNode* start_node_this = min_pointer;
+    FTNode* last_node_this = NULL;
+    int start_point = 0;
 
-        while(next_x != NULL){
-            if((x->degree != next_x->degree) || ((next_x->right_sibling != NULL) && (next_x->right_sibling->degree == x->degree))){
-                prev_x = x;
-                x = next_x;
-            }else if(x->key <= next_x->key){
-                x->right_sibling = next_x->right_sibling;
-                if(next_x->right_sibling != NULL){
-                    next_x->right_sibling->left_sibling = x;
-                }
-                Link(next_x, x);
-            }else{
-                if(prev_x == NULL){
-                    this->head_root_list = next_x;
-                    next_x->left_sibling = NULL;
-                }else{
-                    prev_x->right_sibling = next_x;
-                    next_x->left_sibling = prev_x;
-                }
-                Link(x, next_x);
-                x = next_x;
-            }
-            next_x = x->right_sibling; 
+    //Find last node of H_in
+    while((current_node != start_node_H_in) || (start_point == 0)){
+        if(current_node->right_sibling == start_node_H_in){
+            last_node_H_in = current_node;
+        }
+
+        current_node = current_node->right_sibling;
+        if(start_point == 0){
+            start_point = 1;
         }
     }
     
-    //Update the min_pointer;
-    UpdateMinPtr();
+    //Find last node of this
+    start_point = 0;
+    current_node = min_pointer;
+    while((current_node != start_node_this) || (start_point == 0)){
+        if(current_node->right_sibling == start_node_this){
+            last_node_this = current_node;
+        }
+
+        current_node = current_node->right_sibling;
+        if(start_point == 0){
+            start_point = 1;
+        }
+    }
+
+    last_node_this->right_sibling = H_in.min_pointer;
+    H_in.min_pointer->left_sibling = last_node_this;
+
+    last_node_H_in->right_sibling = head_root_list;
+    head_root_list->left_sibling = last_node_H_in;
+    total_node_num += H_in.total_node_num;
+    root_list_size += H_in.root_list_size;
 }
 
-void Fibonacci_Heap::UpdateMinPtr(){
-    FTNode* root_list = head_root_list;
-    min_pointer = root_list;
-    while(root_list != NULL){
-        if(root_list->key < min_pointer->key){
-            min_pointer = root_list;
-        }
-        root_list = root_list->right_sibling;
+void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){
+    ConcatenateRootList(H_in);
+    //Update the min_pointer;
+    UpdateMinPtr(H_in);
+}
+
+void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){
+    if(((H_in.min_pointer->key < min_pointer->key) && (H_in.min_pointer != NULL)) || (min_pointer == NULL)){
+        min_pointer = H_in.min_pointer;
     }
 }
 
@@ -300,7 +303,8 @@ void Fibonacci_Heap::BuildTestExample(){
 
     head_root_list = seven_node;
     min_pointer = three_node;
-    root_list_size = 3;
+    root_list_size = 4;
+    total_node_num = 17;
 }
 
 void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue){
@@ -632,66 +636,20 @@ void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){
 }
 
 bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){
-    if(x == NULL){
-        std::cout<<"Error : The input FTNode x is "<<x<<std::endl;
-        return false;
-    }
 
-    if(changed_key > x->key){
-        std::cout<<"Error : New key is greater than current key at the node with address "<<x<<std::endl;
-        return false;
-    }
-
-    x->key = changed_key;
-    FTNode* y = x;
-    FTNode* z = x->parent;
-
-    while((z != NULL) && (y->key < z->key)){
-        ExchangeNodePos(z, y);
-        z = y->parent;
-    }
-
-    if(z == NULL){
-        UpdateMinPtr();
-    }
-    return true;
 }
 
 bool Fibonacci_Heap::DecreaseKeySatellite(FTNode* const x, const int changed_key){
-    if(x == NULL){
-        std::cout<<"Error : The input FTNode x is "<<x<<std::endl;
-        return false;
-    }
-
-    if(changed_key > x->key){
-        std::cout<<"Error : New key is greater than current key at the node with address "<<x<<std::endl;
-        return false;
-    }
-
-    x->key = changed_key;
-    FTNode* y = x;
-    FTNode* z = x->parent;
-
-    while((z != NULL) && (y->key < z->key)){
-        ExchangeSatelliteInfo(z, y);
-        y = z;
-        z = y->parent;
-    }
-
-    if(z == NULL){
-        UpdateMinPtr();
-    }
-    return true;
 }
 
-int Fibonacci_Heap::FindMin(){
+/*inline FTNode* Fibonacci_Heap::FindMin(){
     if(min_pointer != NULL){
-        return min_pointer->key;
+        return min_pointer;
     }else{
         std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;
-        return -1;
+        return NULL;
     }
-}
+}*/
 
 bool Fibonacci_Heap::Delete(FTNode* const x){
     if(DecreaseKey(x, -INT_MAX)){

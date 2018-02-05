@@ -35,11 +35,12 @@ class Fibonacci_Heap{
         void Link(FTNode* y, FTNode* z);
         void ExchangeSatelliteInfo(FTNode* const x, FTNode* const y);//Now only has one satellite : key. The function is used in DecreasekeySatellite.
         void ExchangeNodePos(FTNode* const x, FTNode* const y);//Used in Decreasekey()
-        void UpdateMinPtr();
+        void UpdateMinPtr(Fibonacci_Heap &H_in);
         int  CalculateDepth(FTNode* const current_child_node, const int depth);
         void SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map);
         void BuildTestExample();
         void PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue);
+        void ConcatenateRootList(Fibonacci_Heap &H_in);
 
     public : 
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};
@@ -51,12 +52,13 @@ class Fibonacci_Heap{
         FTNode*        Search(const int key); // Takes O(n).
         FTNode*        ExtractMin();
         void           Traverse(const int print_width = 3, const bool debug = false);
-        int            FindMin();
+        inline FTNode* FindMin(){if(min_pointer != NULL){return min_pointer;}else{std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;return NULL;}};
         void           InsertArbitrary(const int key);
         void           InsertArbitrary(FTNode* const inserted_node);
         void           Union(Fibonacci_Heap &H_in);
         inline FTNode* GetHeadRootList(){return head_root_list;};
         inline int     GetRootListSize(){return root_list_size;};
+        inline int     GetTotalNodeNum(){return total_node_num;};
 };
 
 #endif

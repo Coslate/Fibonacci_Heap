@@ -3,13 +3,13 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BuildTestExample	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::BuildTestExample(){$/;"	f	class:Fibonacci_Heap
 CC	./Makefile	/^CC = g++$/;"	m
 CFLAGS	./Makefile	/^CFLAGS = -g -Wall -O3 $/;"	m
 COMPILE_FLAGS	./Makefile	/^COMPILE_FLAGS = -c$/;"	m
-CTAGS_UTIL	./Makefile	/^CTAGS_UTIL = \/usr\/local\/bin\/$/;"	m
 CalculateDepth	./Fibonacci_Heap.cpp	/^int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int depth){$/;"	f	class:Fibonacci_Heap
+ConcatenateRootList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 DecreaseKey	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){$/;"	f	class:Fibonacci_Heap
 DecreaseKeySatellite	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::DecreaseKeySatellite(FTNode* const x, const int changed_key){$/;"	f	class:Fibonacci_Heap
 Delete	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::Delete(FTNode* const x){$/;"	f	class:Fibonacci_Heap
@@ -22,10 +22,11 @@ FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value1, const int v
 FTNode	./include/Fibonacci_Heap.h	/^class FTNode{$/;"	c
 Fibonacci_Heap	./include/Fibonacci_Heap.h	/^        Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};$/;"	f	class:Fibonacci_Heap
 Fibonacci_Heap	./include/Fibonacci_Heap.h	/^class Fibonacci_Heap{$/;"	c
-FindMin	./Fibonacci_Heap.cpp	/^int Fibonacci_Heap::FindMin(){$/;"	f	class:Fibonacci_Heap
+FindMin	./include/Fibonacci_Heap.h	/^        inline FTNode* FindMin(){if(min_pointer != NULL){return min_pointer;}else{std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;return NULL;}};$/;"	f	class:Fibonacci_Heap
 GetHeadRootList	./include/Fibonacci_Heap.h	/^        inline FTNode* GetHeadRootList(){return head_root_list;};$/;"	f	class:Fibonacci_Heap
 GetKey	./include/Fibonacci_Heap.h	/^        inline int GetKey(){return key;};$/;"	f	class:FTNode
 GetRootListSize	./include/Fibonacci_Heap.h	/^        inline int     GetRootListSize(){return root_list_size;};$/;"	f	class:Fibonacci_Heap
+GetTotalNodeNum	./include/Fibonacci_Heap.h	/^        inline int     GetTotalNodeNum(){return total_node_num;};$/;"	f	class:Fibonacci_Heap
 INCLUDE_FILES	./Makefile	/^INCLUDE_FILES = .\/include$/;"	m
 INCLUDE_FLAGS	./Makefile	/^INCLUDE_FLAGS = -I $(INCLUDE_FILES)$/;"	m
 InsertArbitrary	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){$/;"	f	class:Fibonacci_Heap
@@ -45,8 +46,8 @@ Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"
 SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){$/;"	f	class:Fibonacci_Heap
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
-UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(){$/;"	f	class:Fibonacci_Heap
-_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	/^#define _FIBONACCI_HEAP_H_$/;"	d
+UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
+_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
 child	./include/Fibonacci_Heap.h	/^        FTNode* child;$/;"	m	class:FTNode
 degree	./include/Fibonacci_Heap.h	/^        int degree;$/;"	m	class:FTNode
 head_root_list	./include/Fibonacci_Heap.h	/^        FTNode* head_root_list;$/;"	m	class:Fibonacci_Heap
