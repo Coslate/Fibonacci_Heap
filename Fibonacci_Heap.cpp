@@ -8,7 +8,7 @@
 #include <Fibonacci_Heap.h>
 
 Fibonacci_Heap::~Fibonacci_Heap(){
-    std::cout<<"It is destruvtor."<<std::endl;
+    std::cout<<"It is destructor."<<std::endl;
 }
 
 void Fibonacci_Heap::Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Heap &H_merged){
@@ -129,6 +129,12 @@ void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
     head_root_list->left_sibling = last_node_H_in;
     total_node_num += H_in.total_node_num;
     root_list_size += H_in.root_list_size;
+
+    //Release H_in
+    H_in.total_node_num = 0;
+    H_in.root_list_size = 0;
+    H_in.head_root_list = NULL;
+    H_in.min_pointer = NULL;
 }
 
 void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){
@@ -165,7 +171,7 @@ int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int d
     int find_depth = depth;
     int find_depth_max = find_depth;
 
-    while((current_traverse_node != current_child_node) || (start_pt == 0) && (current_traverse_node != NULL)){
+    while(((current_traverse_node != current_child_node) || (start_pt == 0)) && (current_traverse_node != NULL)){
         if(current_traverse_node->child != NULL){
             find_depth = CalculateDepth(current_traverse_node->child, depth+1);
             if(find_depth > find_depth_max){
@@ -373,7 +379,6 @@ void Fibonacci_Heap::Traverse(const int print_width, const bool debug){
                 }
                 printf("(%*d, %-p, %*d)--> ", print_width,  current_parent->key, current_parent, print_width, current_parent->degree);
                 PrintList(current_parent->child, print_width, parent_queue);
-                FTNode* top_out_node = parent_queue.front();
             }
             parent_queue.pop();
         }
@@ -652,10 +657,13 @@ void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){
 }
 
 bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){
-
+    //To-do
+    return true;
 }
 
 bool Fibonacci_Heap::DecreaseKeySatellite(FTNode* const x, const int changed_key){
+    //To-do
+    return true;
 }
 
 /*inline FTNode* Fibonacci_Heap::FindMin(){

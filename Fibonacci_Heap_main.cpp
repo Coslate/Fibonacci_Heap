@@ -64,6 +64,8 @@ int main(){
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H4========================================="<<std::endl;
+    FTNode* new_200_node = new FTNode(200);
+    H4.InsertArbitrary(new_200_node);
     H4.Traverse();
 
     std::cout<<"=====================================H4.Union(H3)========================================="<<std::endl;
