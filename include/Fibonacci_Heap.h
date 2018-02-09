@@ -28,6 +28,7 @@ class Fibonacci_Heap{
         int root_list_size;
         int total_node_num;
         FTNode* head_root_list;
+        FTNode* tail_root_list;
         FTNode* min_pointer;
 
     protected : 
@@ -43,7 +44,7 @@ class Fibonacci_Heap{
         void ConcatenateRootList(Fibonacci_Heap &H_in);
 
     public : 
-        Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), min_pointer(NULL){};
+        Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), tail_root_list(NULL), min_pointer(NULL){};
         ~Fibonacci_Heap();
        
         bool           Delete(FTNode* const x);
@@ -57,6 +58,7 @@ class Fibonacci_Heap{
         void           InsertArbitrary(FTNode* const inserted_node);
         void           Union(Fibonacci_Heap &H_in);
         inline FTNode* GetHeadRootList(){return head_root_list;};
+        inline FTNode* GetTailRootList(){return tail_root_list;};
         inline int     GetRootListSize(){return root_list_size;};
         inline int     GetTotalNodeNum(){return total_node_num;};
 };

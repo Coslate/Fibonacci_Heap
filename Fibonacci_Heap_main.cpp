@@ -30,6 +30,8 @@ int main(){
     H1.Traverse(3, true);
     std::cout<<"H1.total_node_num = "<<H1.GetTotalNodeNum()<<std::endl;
     std::cout<<"H1.root_list_size = "<<H1.GetRootListSize()<<std::endl;
+    std::cout<<"H1.head = "<<H1.GetHeadRootList()<<std::endl;
+    std::cout<<"H1.tail = "<<H1.GetTailRootList()<<std::endl;
     std::cout<<"H1.min_pointer = "<<"("<<H1.FindMin()->GetKey()<<", "<<H1.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H2========================================="<<std::endl;
     FTNode* new_10_node = new FTNode(10);
@@ -41,12 +43,16 @@ int main(){
     H2.Traverse();
     std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
+    std::cout<<"H2.head = "<<H2.GetHeadRootList()<<std::endl;
+    std::cout<<"H2.tail = "<<H2.GetTailRootList()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H2.Union(H3)========================================="<<std::endl;
     H2.Union(H3);
     H2.Traverse();
     std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
+    std::cout<<"H2.head = "<<H2.GetHeadRootList()<<std::endl;
+    std::cout<<"H2.tail = "<<H2.GetTailRootList()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H3========================================="<<std::endl;
     H3.InsertArbitrary(1);
@@ -55,6 +61,8 @@ int main(){
     H3.Traverse();
     std::cout<<"H3.total_node_num = "<<H3.GetTotalNodeNum()<<std::endl;
     std::cout<<"H3.root_list_size = "<<H3.GetRootListSize()<<std::endl;
+    std::cout<<"H3.head = "<<H3.GetHeadRootList()<<std::endl;
+    std::cout<<"H3.tail = "<<H3.GetTailRootList()<<std::endl;
     std::cout<<"H3.min_pointer = "<<"("<<H3.FindMin()->GetKey()<<", "<<H3.FindMin()<<")"<<std::endl;
 
     std::cout<<"=====================================H2.Union(H3)========================================="<<std::endl;
@@ -62,6 +70,8 @@ int main(){
     H2.Traverse();
     std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
     std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
+    std::cout<<"H2.head = "<<H2.GetHeadRootList()<<std::endl;
+    std::cout<<"H2.tail = "<<H2.GetTailRootList()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
     std::cout<<"=====================================H4========================================="<<std::endl;
     FTNode* new_200_node = new FTNode(200);
@@ -73,6 +83,8 @@ int main(){
     H4.Traverse();
     std::cout<<"H4.total_node_num = "<<H4.GetTotalNodeNum()<<std::endl;
     std::cout<<"H4.root_list_size = "<<H4.GetRootListSize()<<std::endl;
+    std::cout<<"H4.head = "<<H4.GetHeadRootList()<<std::endl;
+    std::cout<<"H4.tail = "<<H4.GetTailRootList()<<std::endl;
     std::cout<<"H4.min_pointer = "<<"("<<H4.FindMin()->GetKey()<<", "<<H4.FindMin()<<")"<<std::endl;
 
 

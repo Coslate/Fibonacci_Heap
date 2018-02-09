@@ -81,66 +81,35 @@ void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
         return;
     }
 
-    FTNode* start_node_H_in =  H_in.head_root_list;
-    FTNode* last_node_H_in =  NULL;
-    FTNode* current_node = H_in.min_pointer;
-    FTNode* start_node_this = min_pointer;
-    FTNode* last_node_this = NULL;
-    int start_point = 0;
-
-    //Find last node of H_in
-    while((current_node != start_node_H_in) || (start_point == 0)){
-        if(current_node->right_sibling == start_node_H_in){
-            last_node_H_in = current_node;
-        }
-
-        current_node = current_node->right_sibling;
-        if(start_point == 0){
-            start_point = 1;
-        }
-    }
-   
     if(total_node_num == 0){
         min_pointer = H_in.min_pointer;
         root_list_size = H_in.root_list_size;
         total_node_num = H_in.total_node_num;
         head_root_list = H_in.head_root_list;
+        tail_root_list = H_in.tail_root_list;
         return;
     } 
 
-    //Find last node of this
-    start_point = 0;
-    current_node = min_pointer;
-    while((current_node != start_node_this) || (start_point == 0)){
-        if(current_node->right_sibling == start_node_this){
-            last_node_this = current_node;
-        }
+    tail_root_list->right_sibling = H_in.head_root_list;
+    H_in.head_root_list->left_sibling = tail_root_list;
 
-        current_node = current_node->right_sibling;
-        if(start_point == 0){
-            start_point = 1;
-        }
-    }
-
-    last_node_this->right_sibling = H_in.min_pointer;
-    H_in.min_pointer->left_sibling = last_node_this;
-
-    last_node_H_in->right_sibling = head_root_list;
-    head_root_list->left_sibling = last_node_H_in;
+    H_in.tail_root_list->right_sibling = head_root_list;
+    head_root_list->left_sibling = H_in.tail_root_list;
     total_node_num += H_in.total_node_num;
     root_list_size += H_in.root_list_size;
-
-    //Release H_in
-    H_in.total_node_num = 0;
-    H_in.root_list_size = 0;
-    H_in.head_root_list = NULL;
-    H_in.min_pointer = NULL;
+    tail_root_list = H_in.tail_root_list;
 }
 
 void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){
     ConcatenateRootList(H_in);
     //Update the min_pointer;
     UpdateMinPtr(H_in);
+    //Release H_in
+    H_in.total_node_num = 0;
+    H_in.root_list_size = 0;
+    H_in.head_root_list = NULL;
+    H_in.tail_root_list = NULL;
+    H_in.min_pointer = NULL;
 }
 
 void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){
@@ -324,6 +293,7 @@ void Fibonacci_Heap::BuildTestExample(){
     sixty_nine_node->left_sibling = sixty_nine_node;
 
     head_root_list = seven_node;
+    tail_root_list = twenty_four_node;
     min_pointer = three_node;
     root_list_size = 4;
     total_node_num = 17;
@@ -383,52 +353,6 @@ void Fibonacci_Heap::Traverse(const int print_width, const bool debug){
             parent_queue.pop();
         }
     }
-
-
-/*
-    while(current_root_node != NULL){
-        FTNode* current_child = current_root_node->child;
-        if(current_child != NULL){
-            child_root_queue.push(current_child);
-        }
-
-        //print
-        std::cout<<"##################################"<<std::endl;
-        std::cout<<"#########      B"<<count_root<<"      ###########"<<std::endl;
-        std::cout<<"##################################"<<std::endl;
-        std::cout<<"("<<current_root_node->key<<", "<<current_root_node<<", "<<current_root_node->degree<<")"<<std::endl;
-        std::cout<<"-----------------------"<<std::endl;
-        while(!child_root_queue.empty()){
-            FTNode* current_child_node = child_root_queue.front();
-            FTNode* start_node = current_child_node;
-            int first_node = 1;
-            child_root_queue.pop();
-
-            while((current_child_node != start_node) || (first_node == 1)){
-                if(current_child_node->right_sibling == start_node){
-                    std::cout<<"("<<current_child_node->key<<", "<<current_child_node<<", "<<current_child_node->degree<<")"<<std::endl;
-                }else{
-                    std::cout<<"("<<current_child_node->key<<", "<<current_child_node<<", "<<current_child_node->degree<<"), ";
-                }
-
-                if(current_child_node->child != NULL){
-                    child_root_queue.push(current_child_node->child);
-                }
-
-                current_child_node = current_child_node->right_sibling;
-                if(first_node == 1){
-                    first_node = 0;
-                }
-            }
-
-            if(!child_root_queue.empty()){
-                std::cout<<"-----------------------"<<std::endl;
-            }
-        }
-        current_root_node = current_root_node->right_sibling;
-        ++count_root;
-    }
-*/
 }
 
 void Fibonacci_Heap::InsertArbitrary(const int key){
@@ -437,14 +361,18 @@ void Fibonacci_Heap::InsertArbitrary(const int key){
         min_pointer = inserted_node;
         min_pointer->right_sibling = min_pointer;
         min_pointer->left_sibling = min_pointer;
-        head_root_list = min_pointer;
+        head_root_list = inserted_node;
+        tail_root_list = inserted_node;
     }else{
         FTNode* min_left_node = min_pointer->left_sibling;
         inserted_node->left_sibling = min_left_node;
         inserted_node->right_sibling = min_pointer;
         min_left_node->right_sibling = inserted_node;
         min_pointer->left_sibling = inserted_node;
-        head_root_list = head_root_list->left_sibling;
+
+        if(min_left_node == min_pointer){
+            head_root_list = inserted_node;
+        }
 
         if(min_pointer->key > inserted_node->key){
             min_pointer = inserted_node;
@@ -464,14 +392,18 @@ void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){
         min_pointer = inserted_node;
         min_pointer->right_sibling = min_pointer;
         min_pointer->left_sibling = min_pointer;
-        head_root_list = min_pointer;
+        head_root_list = inserted_node;
+        tail_root_list = inserted_node;
     }else{
         FTNode* min_left_node = min_pointer->left_sibling;
         inserted_node->left_sibling = min_left_node;
         inserted_node->right_sibling = min_pointer;
         min_left_node->right_sibling = inserted_node;
         min_pointer->left_sibling = inserted_node;
-        head_root_list = head_root_list->left_sibling;
+
+        if(min_left_node == min_pointer){
+            head_root_list = inserted_node;
+        }
 
         if(min_pointer->key > inserted_node->key){
             min_pointer = inserted_node;
