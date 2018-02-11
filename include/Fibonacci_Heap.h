@@ -42,6 +42,7 @@ class Fibonacci_Heap{
         void BuildTestExample();
         void PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue);
         void ConcatenateRootList(Fibonacci_Heap &H_in);
+        void AddChildToRootList();
 
     public : 
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), tail_root_list(NULL), min_pointer(NULL){};

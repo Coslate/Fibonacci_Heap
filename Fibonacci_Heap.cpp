@@ -413,72 +413,33 @@ void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){
     ++total_node_num;
 }
 
+void Fibonacci_Heap::AddChildToRootList(){
+    FTNode* min_child = min_pointer->child;
+    FTNode* current_traverse_node = min_child;
+    int start_pt = 0;
+
+    while(((current_traverse_node != min_child) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        FTNode* min_left_node = min_pointer->left_sibling;
+        FTNode* inserted_node = current_traverse_node;
+        inserted_node->left_sibling = min_left_node;
+        inserted_node->right_sibling = min_pointer;
+        min_left_node->right_sibling = inserted_node;
+        min_pointer->left_sibling = inserted_node;
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+    }
+}
+
 FTNode* Fibonacci_Heap::ExtractMin(){
     if(head_root_list == NULL){
         std::cout<<"Error : The Fibonacci_Heap is already empty."<<std::endl;
         return NULL;
     }
-
-    FTNode* min_child = min_pointer->child;
-    FTNode* current_child = min_pointer->child;
-    FTNode* child_new_head = NULL;
-    FTNode* last_node = NULL;
-    FTNode* min_ptr = min_pointer;
-    std::stack<FTNode*> child_list_stack;
-    int index_cnt = 0;
-
-    //Extract the min from the original root_list.
-    if(min_pointer->left_sibling == NULL){
-        head_root_list = min_pointer->right_sibling;
-        if(min_pointer->right_sibling != NULL){
-            min_pointer->right_sibling->left_sibling = NULL;
-        }
-    }else{
-        min_pointer->left_sibling->right_sibling = min_pointer->right_sibling;
-         if(min_pointer->right_sibling != NULL){
-            min_pointer->right_sibling->left_sibling = min_pointer->left_sibling;
-        }       
-    }
-
-    min_ptr->right_sibling = NULL;
-    if(min_child != NULL){
-        min_child->parent = NULL;
-    }
-    --root_list_size;
-
-    //Reverse the min_child list to construct the new Fibonacci_Heap.
-    while(current_child != NULL){
-        child_list_stack.push(current_child);
-        current_child = current_child->right_sibling;
-    }
-
-    int child_size = child_list_stack.size();
-    while(!child_list_stack.empty()){
-        if(index_cnt == 0){
-            last_node = child_list_stack.top(); 
-            child_new_head = last_node;
-            child_new_head->left_sibling = NULL;
-        }else{
-            FTNode* current_node = child_list_stack.top();
-            last_node->right_sibling = current_node;
-            current_node->left_sibling = last_node;
-            last_node = current_node;
-
-            if(index_cnt == (child_size - 1)){
-                last_node->right_sibling = NULL;
-            }
-        }
-        child_list_stack.pop();
-        ++index_cnt;
-    }
-
-    Fibonacci_Heap* tmp_Heap = new Fibonacci_Heap();
-    tmp_Heap->root_list_size = index_cnt;
-    tmp_Heap->head_root_list = child_new_head;
-    Union(*tmp_Heap);
-    delete tmp_Heap;
-
-    return min_ptr;
+    AddChildToRootList();
+    return NULL;
 }
 
 FTNode* Fibonacci_Heap::Search(const int key){
@@ -597,15 +558,6 @@ bool Fibonacci_Heap::DecreaseKeySatellite(FTNode* const x, const int changed_key
     //To-do
     return true;
 }
-
-/*inline FTNode* Fibonacci_Heap::FindMin(){
-    if(min_pointer != NULL){
-        return min_pointer;
-    }else{
-        std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;
-        return NULL;
-    }
-}*/
 
 bool Fibonacci_Heap::Delete(FTNode* const x){
     if(DecreaseKey(x, -INT_MAX)){
