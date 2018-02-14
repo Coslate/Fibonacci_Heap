@@ -24,6 +24,7 @@ int main(){
     Fibonacci_Heap H2;
     Fibonacci_Heap H3;
     Fibonacci_Heap H4;
+    Fibonacci_Heap H5;
 
 
     std::cout<<"=====================================H1========================================="<<std::endl;
@@ -73,10 +74,27 @@ int main(){
     std::cout<<"H2.head = "<<H2.GetHeadRootList()<<std::endl;
     std::cout<<"H2.tail = "<<H2.GetTailRootList()<<std::endl;
     std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;
+    std::cout<<"=====================================H2.ExtractMin()========================================="<<std::endl;
+    FTNode* extracted_min = NULL;
+    extracted_min = H2.ExtractMin();
+    H2.Traverse();
+    std::cout<<"H2.total_node_num = "<<H2.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H2.root_list_size = "<<H2.GetRootListSize()<<std::endl;
+    std::cout<<"H2.head = "<<H2.GetHeadRootList()<<std::endl;
+    std::cout<<"H2.tail = "<<H2.GetTailRootList()<<std::endl;
+    std::cout<<"H2.min_pointer = "<<"("<<H2.FindMin()->GetKey()<<", "<<H2.FindMin()<<")"<<std::endl;   
+    std::cout<<"extracted_min = "<<"("<<extracted_min->GetKey()<<", "<<extracted_min<<")"<<std::endl;
+
+
     std::cout<<"=====================================H4========================================="<<std::endl;
     FTNode* new_200_node = new FTNode(200);
     H4.InsertArbitrary(new_200_node);
     H4.Traverse();
+    std::cout<<"H4.total_node_num = "<<H4.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H4.root_list_size = "<<H4.GetRootListSize()<<std::endl;
+    std::cout<<"H4.head = "<<H4.GetHeadRootList()<<std::endl;
+    std::cout<<"H4.tail = "<<H4.GetTailRootList()<<std::endl;
+    std::cout<<"H4.min_pointer = "<<"("<<H4.FindMin()->GetKey()<<", "<<H4.FindMin()<<")"<<std::endl;
 
     std::cout<<"=====================================H4.Union(H3)========================================="<<std::endl;
     H4.Union(H3);
@@ -86,7 +104,41 @@ int main(){
     std::cout<<"H4.head = "<<H4.GetHeadRootList()<<std::endl;
     std::cout<<"H4.tail = "<<H4.GetTailRootList()<<std::endl;
     std::cout<<"H4.min_pointer = "<<"("<<H4.FindMin()->GetKey()<<", "<<H4.FindMin()<<")"<<std::endl;
+    std::cout<<"=====================================H4.ExtractMin()========================================="<<std::endl;
+    extracted_min = H4.ExtractMin();
+    H4.Traverse();
+    std::cout<<"H4.total_node_num = "<<H4.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H4.root_list_size = "<<H4.GetRootListSize()<<std::endl;
+    std::cout<<"H4.head = "<<H4.GetHeadRootList()<<std::endl;
+    std::cout<<"H4.tail = "<<H4.GetTailRootList()<<std::endl;
+//    std::cout<<"H4.min_pointer = "<<"("<<H4.FindMin()->GetKey()<<", "<<H4.FindMin()<<")"<<std::endl;   
+    std::cout<<"extracted_min = "<<"("<<extracted_min->GetKey()<<", "<<extracted_min<<")"<<std::endl;
 
+    std::cout<<"=====================================H5========================================="<<std::endl;
+    H5.InsertArbitrary(extracted_min);
+    H5.Traverse();
+    std::cout<<"H5.total_node_num = "<<H5.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H5.root_list_size = "<<H5.GetRootListSize()<<std::endl;
+    std::cout<<"H5.head = "<<H5.GetHeadRootList()<<std::endl;
+    std::cout<<"H5.tail = "<<H5.GetTailRootList()<<std::endl;
+    std::cout<<"H5.min_pointer = "<<"("<<H5.FindMin()->GetKey()<<", "<<H5.FindMin()<<")"<<std::endl;
 
+    std::cout<<"=====================================H5.Union(H2)========================================="<<std::endl;
+    H5.Union(H2);
+    H5.Traverse();
+    std::cout<<"H5.total_node_num = "<<H5.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H5.root_list_size = "<<H5.GetRootListSize()<<std::endl;
+    std::cout<<"H5.head = "<<H5.GetHeadRootList()<<std::endl;
+    std::cout<<"H5.tail = "<<H5.GetTailRootList()<<std::endl;
+    std::cout<<"H5.min_pointer = "<<"("<<H5.FindMin()->GetKey()<<", "<<H5.FindMin()<<")"<<std::endl;
+    std::cout<<"=====================================H5.ExtractMin()========================================="<<std::endl;
+    extracted_min = H5.ExtractMin();
+    H5.Traverse();
+    std::cout<<"H5.total_node_num = "<<H5.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H5.root_list_size = "<<H5.GetRootListSize()<<std::endl;
+    std::cout<<"H5.head = "<<H5.GetHeadRootList()<<std::endl;
+    std::cout<<"H5.tail = "<<H5.GetTailRootList()<<std::endl;
+    std::cout<<"H5.min_pointer = "<<"("<<H5.FindMin()->GetKey()<<", "<<H5.FindMin()<<")"<<std::endl;   
+    std::cout<<"extracted_min = "<<"("<<extracted_min->GetKey()<<", "<<extracted_min<<")"<<std::endl;
     return EXIT_SUCCESS;
 }

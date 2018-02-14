@@ -5,6 +5,7 @@
 #include <vector>
 #include <climits>
 #include <iomanip>
+#include <cmath>
 #include <Fibonacci_Heap.h>
 
 Fibonacci_Heap::~Fibonacci_Heap(){
@@ -120,18 +121,6 @@ void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){
     }else if(H_in.min_pointer->key < min_pointer->key){
         min_pointer = H_in.min_pointer;
     }
-}
-
-void Fibonacci_Heap::Link(FTNode* y, FTNode* z){
-    y->parent = z;
-    y->right_sibling = z->child;
-    y->left_sibling = NULL;
-    if(z->child != NULL){
-        z->child->left_sibling = y;
-    }
-    z->child = y;
-    z->degree += 1;
-    root_list_size -= 1;
 }
 
 int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int depth){
@@ -419,6 +408,7 @@ void Fibonacci_Heap::AddChildToRootList(){
     int start_pt = 0;
 
     while(((current_traverse_node != min_child) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        FTNode* next_node = current_traverse_node->right_sibling;
         FTNode* min_left_node = min_pointer->left_sibling;
         FTNode* inserted_node = current_traverse_node;
         inserted_node->left_sibling = min_left_node;
@@ -429,7 +419,88 @@ void Fibonacci_Heap::AddChildToRootList(){
         if(start_pt == 0){
             ++start_pt;
         }
-        current_traverse_node = current_traverse_node->right_sibling;
+        current_traverse_node = next_node;
+    }
+    min_pointer->child = NULL;
+}
+
+void Fibonacci_Heap::HeapLink(FTNode* &y, FTNode* &x){
+    //Remove y from the root list
+    y->right_sibling->left_sibling = y->left_sibling;
+    y->left_sibling->right_sibling = y->right_sibling;
+    //Make y a child of x
+    if(x->child == NULL){
+        x->child = y;
+        y->parent = x;
+        y->right_sibling = y;
+        y->left_sibling = y;
+        y->mark = false;
+        x->degree += 1;
+    }else{
+        FTNode* x_child = x->child;
+        x_child->left_sibling->right_sibling = y;
+        y->left_sibling = x_child->left_sibling;
+        x_child->left_sibling = y;
+        y->right_sibling = x_child;
+        y->mark = false;
+        x->degree += 1;
+    }
+
+}
+
+void Fibonacci_Heap::Consolidate(){
+    int size_of_arr = (log(total_node_num)/log(2)) + 1;
+    FTNode** adjust_arr = new FTNode* [size_of_arr];
+    FTNode* current_traverse_node = min_pointer;
+    int start_pt = 0;
+    
+    //Initialization of adjust_arr
+    for(int i=0;i<size_of_arr;++i){
+        adjust_arr[i] = NULL;
+    }
+
+    //Consolidate each element of the root list
+    while(((current_traverse_node != min_pointer) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        FTNode* x_node = current_traverse_node;
+        int degree = x_node->degree;
+        
+        while(adjust_arr[degree] != NULL){
+            FTNode* y_node = adjust_arr[degree];
+
+            if(x_node->key > y_node->key){
+                ExchangeNode(x_node, y_node);
+            }
+            if(y_node == min_pointer){
+                min_pointer = y_node->right_sibling;
+            }
+            HeapLink(y_node, x_node);
+            adjust_arr[degree] = NULL;
+            ++degree;
+        }
+        adjust_arr[degree] = x_node;
+        
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = x_node->right_sibling;
+    }
+
+    //Update min_pointer, head_root_list, and tail_root_list
+    head_root_list = NULL;
+    tail_root_list = NULL;
+    root_list_size = 0;
+    for(int i=0;i<size_of_arr;++i){
+        if(adjust_arr[i] != NULL){
+            ++root_list_size;
+            if(adjust_arr[i]->key < min_pointer->key){
+                min_pointer = adjust_arr[i];
+            }
+
+            if(head_root_list == NULL){
+                head_root_list = adjust_arr[i];
+                tail_root_list = head_root_list->left_sibling;
+            }
+        }
     }
 }
 
@@ -438,8 +509,32 @@ FTNode* Fibonacci_Heap::ExtractMin(){
         std::cout<<"Error : The Fibonacci_Heap is already empty."<<std::endl;
         return NULL;
     }
+
+    FTNode* ret_ptr = min_pointer;
+    //Step1. Add child of min_pointer to the root list
     AddChildToRootList();
-    return NULL;
+
+    //Step2. Remove min_pointer from the root list
+    if(min_pointer->right_sibling == min_pointer){
+        min_pointer = NULL;
+        head_root_list = NULL;
+        tail_root_list = NULL;
+        total_node_num = 0;
+        root_list_size = 0;
+        ret_ptr->child = NULL;
+    }else{
+    //Step3. If there are two(or more) elements in the root list -> Consolidate
+        min_pointer->left_sibling->right_sibling = min_pointer->right_sibling;
+        min_pointer->right_sibling->left_sibling = min_pointer->left_sibling;
+        min_pointer = min_pointer->right_sibling;
+        --total_node_num;
+        Consolidate();
+
+        ret_ptr->right_sibling = ret_ptr;
+        ret_ptr->left_sibling = ret_ptr;
+        ret_ptr->child = NULL; 
+    }
+    return ret_ptr;
 }
 
 FTNode* Fibonacci_Heap::Search(const int key){

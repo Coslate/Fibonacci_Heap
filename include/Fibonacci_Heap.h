@@ -7,18 +7,18 @@
 class Fibonacci_Heap;
 
 class FTNode{
-        int key;
-        int degree;
-        int mark;
-        int level;
+        int     key;
+        int     degree;
+        bool    mark;
+        int     level;
         FTNode* parent;
         FTNode* child;
         FTNode* right_sibling;
         FTNode* left_sibling;
     public : 
-        FTNode() : key(0), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
-        FTNode(const int value1, const int value2, const int value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
-        FTNode(const int value) : key(value), degree(0), mark(0), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode() : key(0), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value) : key(value), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
         
         inline int GetKey(){return key;};
         friend class Fibonacci_Heap;
@@ -32,17 +32,19 @@ class Fibonacci_Heap{
         FTNode* min_pointer;
 
     protected : 
-        void Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Heap &H_merged);
-        void Link(FTNode* y, FTNode* z);
-        void ExchangeSatelliteInfo(FTNode* const x, FTNode* const y);//Now only has one satellite : key. The function is used in DecreasekeySatellite.
-        void ExchangeNodePos(FTNode* const x, FTNode* const y);//Used in Decreasekey()
-        void UpdateMinPtr(Fibonacci_Heap &H_in);
-        int  CalculateDepth(FTNode* const current_child_node, const int depth);
-        void SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map);
-        void BuildTestExample();
-        void PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue);
-        void ConcatenateRootList(Fibonacci_Heap &H_in);
-        void AddChildToRootList();
+        void        Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Heap &H_merged);
+        void        ExchangeSatelliteInfo(FTNode* const x, FTNode* const y);//Now only has one satellite : key. The function is used in DecreasekeySatellite.
+        void        ExchangeNodePos(FTNode* const x, FTNode* const y);//Used in Decreasekey()
+        void        UpdateMinPtr(Fibonacci_Heap &H_in);
+        int         CalculateDepth(FTNode* const current_child_node, const int depth);
+        void        SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map);
+        void        BuildTestExample();
+        void        PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue);
+        void        ConcatenateRootList(Fibonacci_Heap &H_in);
+        void        AddChildToRootList();
+        void        Consolidate();
+        void        HeapLink(FTNode* &y, FTNode* &x);
+        inline void ExchangeNode(FTNode* &a, FTNode* &b){FTNode* tmp = a;a = b;b = tmp;};
 
     public : 
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), tail_root_list(NULL), min_pointer(NULL){};
