@@ -1,5 +1,6 @@
 #declare variable
 CC = g++
+CTAGS_UTIL = /usr/local/bin/
 INCLUDE_FILES = ./include
 INCLUDE_FLAGS = -I $(INCLUDE_FILES)
 CFLAGS = -g -Wall -O3 
@@ -20,8 +21,8 @@ Fibonacci_Heap : $(MAIN_OBJECT_SOURCE)
 	$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(MAIN_OBJECT_SOURCE) $(INCLUDE_FLAGS) -o $(MAIN_OBJECT_EXEC_OUTPUT)$(MAIN_OBJECT_EXEC)
 
 all_file_tags : 
-	ctags -R ./*
-	ctags -a $(INCLUDE_FILES)/*
+	$(CTAGS_UTIL)ctags -R ./*
+	$(CTAGS_UTIL)ctags -a $(INCLUDE_FILES)/*
 
 clean :
 	rm -rf $(MAIN_OBJECT_EXEC_OUTPUT)$(MAIN_OBJECT_EXEC)

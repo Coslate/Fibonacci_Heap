@@ -3,21 +3,21 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddChildToRootList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::AddChildToRootList(){$/;"	f	class:Fibonacci_Heap
 BuildTestExample	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::BuildTestExample(){$/;"	f	class:Fibonacci_Heap
 CC	./Makefile	/^CC = g++$/;"	m
 CFLAGS	./Makefile	/^CFLAGS = -g -Wall -O3 $/;"	m
 COMPILE_FLAGS	./Makefile	/^COMPILE_FLAGS = -c$/;"	m
+CTAGS_UTIL	./Makefile	/^CTAGS_UTIL = \/usr\/local\/bin\/$/;"	m
 CalculateDepth	./Fibonacci_Heap.cpp	/^int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int depth){$/;"	f	class:Fibonacci_Heap
+CascadeCut	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::CascadeCut(FTNode* const y){$/;"	f	class:Fibonacci_Heap
 ConcatenateRootList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 Consolidate	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Consolidate(){$/;"	f	class:Fibonacci_Heap
+Cut	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Cut(FTNode* const x){$/;"	f	class:Fibonacci_Heap
 DecreaseKey	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){$/;"	f	class:Fibonacci_Heap
-DecreaseKeySatellite	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::DecreaseKeySatellite(FTNode* const x, const int changed_key){$/;"	f	class:Fibonacci_Heap
 Delete	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::Delete(FTNode* const x){$/;"	f	class:Fibonacci_Heap
 ExchangeNode	./include/Fibonacci_Heap.h	/^        inline void ExchangeNode(FTNode* &a, FTNode* &b){FTNode* tmp = a;a = b;b = tmp;};$/;"	f	class:Fibonacci_Heap
-ExchangeNodePos	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ExchangeNodePos(FTNode* const x, FTNode* const y){$/;"	f	class:Fibonacci_Heap
-ExchangeSatelliteInfo	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ExchangeSatelliteInfo(FTNode* const x, FTNode* const y){$/;"	f	class:Fibonacci_Heap
 ExtractMin	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::ExtractMin(){$/;"	f	class:Fibonacci_Heap
 FTNode	./include/Fibonacci_Heap.h	/^        FTNode() : key(0), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
 FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value) : key(value), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
@@ -43,15 +43,13 @@ MAIN_OBJECT_NAME	./Makefile	/^MAIN_OBJECT_NAME = Fibonacci_Heap$/;"	m
 MAIN_OBJECT_NAME_MAIN	./Makefile	/^MAIN_OBJECT_NAME_MAIN = Fibonacci_Heap_main$/;"	m
 MAIN_OBJECT_SOURCE	./Makefile	/^MAIN_OBJECT_SOURCE = $(MAIN_OBJECT_NAME).cpp$/;"	m
 MAIN_OBJECT_SOURCE_MAIN	./Makefile	/^MAIN_OBJECT_SOURCE_MAIN = $(MAIN_OBJECT_NAME_MAIN).cpp$/;"	m
-Merge	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Merge(Fibonacci_Heap &H1, Fibonacci_Heap &H2, Fibonacci_Heap &H_merged){$/;"	f	class:Fibonacci_Heap
-PrintArray	./Fibonacci_Heap_main.cpp	/^void PrintArray(const int size, const int* arr, const std::string arr_name){$/;"	f
 PrintList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue){$/;"	f	class:Fibonacci_Heap
 Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"	f	class:Fibonacci_Heap
 SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){$/;"	f	class:Fibonacci_Heap
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
-_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
+_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	/^#define _FIBONACCI_HEAP_H_$/;"	d
 child	./include/Fibonacci_Heap.h	/^        FTNode* child;$/;"	m	class:FTNode
 degree	./include/Fibonacci_Heap.h	/^        int     degree;$/;"	m	class:FTNode
 head_root_list	./include/Fibonacci_Heap.h	/^        FTNode* head_root_list;$/;"	m	class:Fibonacci_Heap
