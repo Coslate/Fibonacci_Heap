@@ -29,7 +29,7 @@ Fibonacci_Heap::~Fibonacci_Heap(){
 }
 
 void Fibonacci_Heap::ReleaseRecur(FTNode* const current_node){
-     FTNode* current_traverse_node = current_node;
+    FTNode* current_traverse_node = current_node;
     int start_pt = 0;
 
     while(((current_traverse_node != current_node) || (start_pt == 0)) && (current_traverse_node != NULL)){
@@ -511,8 +511,8 @@ FTNode* Fibonacci_Heap::ExtractMin(){
 }
 
 FTNode* Fibonacci_Heap::SearchRecur(FTNode* const current_node, const int key){
-     FTNode* current_traverse_node = current_node;
-     FTNode* ans_node = NULL;
+    FTNode* current_traverse_node = current_node;
+    FTNode* ans_node = NULL;
     int start_pt = 0;
     
 
