@@ -49,8 +49,10 @@ class Fibonacci_Heap{
         Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), tail_root_list(NULL), min_pointer(NULL){};
         ~Fibonacci_Heap();
        
+        void           ReleaseRecur(FTNode* const current_node);
         bool           Delete(FTNode* const x);
         bool           DecreaseKey(FTNode* const x, const int changed_key);
+        FTNode*        SearchRecur(FTNode* const current_node, const int key);
         FTNode*        Search(const int key); // Takes O(n).
         FTNode*        ExtractMin();
         void           Traverse(const int print_width = 3, const bool debug = false);

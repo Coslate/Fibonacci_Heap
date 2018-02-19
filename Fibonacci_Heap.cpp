@@ -10,6 +10,41 @@
 
 Fibonacci_Heap::~Fibonacci_Heap(){
     std::cout<<"It is destructor."<<std::endl;
+    FTNode* current_traverse_node = head_root_list;
+    int start_pt = 0;
+
+    while(((current_traverse_node != head_root_list) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        FTNode* tmp_node = current_traverse_node;
+
+        if(current_traverse_node->child != NULL){
+            ReleaseRecur(current_traverse_node->child);
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+        delete tmp_node;
+    }
+}
+
+void Fibonacci_Heap::ReleaseRecur(FTNode* const current_node){
+     FTNode* current_traverse_node = current_node;
+    int start_pt = 0;
+
+    while(((current_traverse_node != current_node) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        FTNode* tmp_node = current_traverse_node;
+
+        if(current_traverse_node->child != NULL){
+            ReleaseRecur(current_traverse_node->child);
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+        delete tmp_node;
+    }
 }
 
 void Fibonacci_Heap::ConcatenateRootList(Fibonacci_Heap &H_in){
@@ -77,7 +112,6 @@ int Fibonacci_Heap::CalculateDepth(FTNode* const current_child_node, const int d
         }
         current_traverse_node = current_traverse_node->right_sibling;
     }
-
     return find_depth_max;
 }
 
@@ -398,6 +432,7 @@ void Fibonacci_Heap::Consolidate(){
     //Consolidate each element of the root list
     while(((current_traverse_node != min_pointer) || (start_pt == 0)) && (current_traverse_node != NULL)){
         FTNode* x_node = current_traverse_node;
+        FTNode* nxt_traverse_node = current_traverse_node->right_sibling;
         int degree = x_node->degree;
         
         while(adjust_arr[degree] != NULL){
@@ -409,6 +444,9 @@ void Fibonacci_Heap::Consolidate(){
             if(y_node == min_pointer){
                 min_pointer = y_node->right_sibling;
             }
+            if(y_node == nxt_traverse_node){
+                nxt_traverse_node = y_node->right_sibling;
+            }
             HeapLink(y_node, x_node);
             adjust_arr[degree] = NULL;
             ++degree;
@@ -418,7 +456,7 @@ void Fibonacci_Heap::Consolidate(){
         if(start_pt == 0){
             ++start_pt;
         }
-        current_traverse_node = x_node->right_sibling;
+        current_traverse_node = nxt_traverse_node;
     }
 
     //Update min_pointer, head_root_list, and tail_root_list
@@ -449,7 +487,6 @@ FTNode* Fibonacci_Heap::ExtractMin(){
     FTNode* ret_ptr = min_pointer;
     //Step1. Add child of min_pointer to the root list
     AddChildToRootList();
-
     //Step2. Remove min_pointer from the root list
     if(min_pointer->right_sibling == min_pointer){
         min_pointer = NULL;
@@ -473,6 +510,32 @@ FTNode* Fibonacci_Heap::ExtractMin(){
     return ret_ptr;
 }
 
+FTNode* Fibonacci_Heap::SearchRecur(FTNode* const current_node, const int key){
+     FTNode* current_traverse_node = current_node;
+     FTNode* ans_node = NULL;
+    int start_pt = 0;
+    
+
+    while(((current_traverse_node != current_node) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        if(current_traverse_node->key == key){
+            ans_node = current_traverse_node;
+            break;
+        }
+        if(current_traverse_node->child != NULL){
+            ans_node = SearchRecur(current_traverse_node->child, key);
+            if(ans_node != NULL){
+                break;
+            }
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
+    }
+    return ans_node;
+}
+
 FTNode* Fibonacci_Heap::Search(const int key){
     if(key < min_pointer->key){
         std::cout<<"Search("<<key<<") not found."<<std::endl;
@@ -480,33 +543,29 @@ FTNode* Fibonacci_Heap::Search(const int key){
     }else if(key == min_pointer->key){
         return min_pointer;
     }
-
+    
+    FTNode* current_traverse_node = head_root_list;
     FTNode* ans_node = NULL;
-    FTNode* current_root_node = head_root_list;
-    std::queue<FTNode*> child_root_queue;
-    child_root_queue.push(current_root_node);
+    int start_pt = 0;
 
-    while(!child_root_queue.empty()){
-        FTNode* examinate_node = child_root_queue.front();
-        child_root_queue.pop();
-
-        FTNode* current_node = examinate_node;
-        while(current_node != NULL){
-            if(current_node->key == key){
-                ans_node = current_node;
-                break;
-            }else if((current_node->key < key) && (current_node->child != NULL)){
-                child_root_queue.push(current_node->child);
-            }
-                
-            current_node = current_node->right_sibling;
-        }
-
-        if(ans_node != NULL){
+    while(((current_traverse_node != head_root_list) || (start_pt == 0)) && (current_traverse_node != NULL)){
+        if(current_traverse_node->key == key){
+            ans_node = current_traverse_node;
             break;
         }
+        if(current_traverse_node->child != NULL){
+            ans_node = SearchRecur(current_traverse_node->child, key);
+            if(ans_node != NULL){
+                break;
+            }
+        }
+
+        if(start_pt == 0){
+            ++start_pt;
+        }
+        current_traverse_node = current_traverse_node->right_sibling;
     }
-    
+
     if(ans_node == NULL){
         std::cout<<"Search("<<key<<") not found."<<std::endl;
     }

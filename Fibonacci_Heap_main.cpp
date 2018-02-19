@@ -151,6 +151,14 @@ int main(){
     FTNode* new_7000_node = new FTNode(7000);
     FTNode* new_8000_node = new FTNode(8000);
     FTNode* new_9000_node = new FTNode(9000);
+    FTNode* new_10000_node = new FTNode(10000);
+    FTNode* new_11000_node = new FTNode(11000);
+    FTNode* new_12000_node = new FTNode(12000);
+    FTNode* new_13000_node = new FTNode(13000);
+    FTNode* new_14000_node = new FTNode(14000);
+    FTNode* new_15000_node = new FTNode(15000);
+    FTNode* new_16000_node = new FTNode(16000);
+    FTNode* new_17000_node = new FTNode(17000);
     H6.InsertArbitrary(new_1000_node);
     H6.InsertArbitrary(new_2000_node);
     H6.InsertArbitrary(new_3000_node);
@@ -160,7 +168,15 @@ int main(){
     H6.InsertArbitrary(new_7000_node);
     H6.InsertArbitrary(new_8000_node);
     H6.InsertArbitrary(new_9000_node);
-    H6.Traverse();
+    H6.InsertArbitrary(new_10000_node);
+    H6.InsertArbitrary(new_11000_node);
+    H6.InsertArbitrary(new_12000_node);
+    H6.InsertArbitrary(new_13000_node);
+    H6.InsertArbitrary(new_14000_node);
+    H6.InsertArbitrary(new_15000_node);
+    H6.InsertArbitrary(new_16000_node);
+    H6.InsertArbitrary(new_17000_node);
+    H6.Traverse(6);
     std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
     std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
     std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
@@ -169,7 +185,7 @@ int main(){
     std::cout<<"=====================================H6.ExtractMin()========================================="<<std::endl;
     extracted_min = NULL;
     extracted_min = H6.ExtractMin();
-    H6.Traverse();
+    H6.Traverse(6);
     std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
     std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
     std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
@@ -180,7 +196,7 @@ int main(){
     if(!H6.DecreaseKey(new_7000_node, 50)){
         std::cout<<"Error : DecreaseKey fails."<<std::endl;
     }
-    H6.Traverse();
+    H6.Traverse(6);
     std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
     std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
     std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
@@ -190,7 +206,7 @@ int main(){
     if(!H6.DecreaseKey(new_9000_node, 60)){
         std::cout<<"Error : DecreaseKey fails."<<std::endl;
     }
-    H6.Traverse();
+    H6.Traverse(6);
     std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
     std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
     std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
@@ -200,11 +216,95 @@ int main(){
     if(!H6.DecreaseKey(new_8000_node, 20)){
         std::cout<<"Error : DecreaseKey fails."<<std::endl;
     }
-    H6.Traverse();
+    H6.Traverse(6);
     std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
     std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
     std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
     std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
     std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;   
+    std::cout<<"=====================================H6.DecreaseKey(11000, 98)========================================="<<std::endl;
+    if(!H6.DecreaseKey(new_11000_node, 98)){
+        std::cout<<"Error : DecreaseKey fails."<<std::endl;
+    }
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;   
+    std::cout<<"=====================================H6.DecreaseKey(15000, 95)========================================="<<std::endl;
+    if(!H6.DecreaseKey(new_15000_node, 95)){
+        std::cout<<"Error : DecreaseKey fails."<<std::endl;
+    }
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;   
+    std::cout<<"=====================================H6.DecreaseKey(17000, 32)========================================="<<std::endl;
+    if(!H6.DecreaseKey(new_17000_node, 32)){
+        std::cout<<"Error : DecreaseKey fails."<<std::endl;
+    }
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;   
+    std::cout<<"=====================================H6.DecreaseKey(16000, 6)========================================="<<std::endl;
+    if(!H6.DecreaseKey(new_16000_node, 6)){
+        std::cout<<"Error : DecreaseKey fails."<<std::endl;
+    }
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;
+    std::cout<<"=====================================H6.Search(5000)========================================="<<std::endl;
+    FTNode* searched_node = H6.Search(5000);
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;
+    if(searched_node != NULL){
+        std::cout<<"searched_node = "<<"("<<searched_node->GetKey()<<", "<<searched_node<<")"<<std::endl;
+    }else{
+        std::cout<<"Error : Search not found."<<std::endl;
+    }
+    std::cout<<"=====================================H6.InsertArbitrary(5000) & Search(5000)========================================="<<std::endl;
+    FTNode* new_5000_node2 = new FTNode(5000);
+    H6.InsertArbitrary(new_5000_node2);
+    searched_node = H6.Search(5000);
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;
+    if(searched_node != NULL){
+        std::cout<<"searched_node = "<<"("<<searched_node->GetKey()<<", "<<searched_node<<")"<<std::endl;
+    }else{
+        std::cout<<"Error : Search not found."<<std::endl;
+    }
+    std::cout<<"=====================================H6.Delete(5000) & Search(5000)========================================="<<std::endl;
+    if(!H6.Delete(new_5000_node2)){
+        std::cout<<"Error : Delete fails."<<std::endl;
+    }
+    searched_node = H6.Search(5000);
+    H6.Traverse(6);
+    std::cout<<"H6.total_node_num = "<<H6.GetTotalNodeNum()<<std::endl;
+    std::cout<<"H6.root_list_size = "<<H6.GetRootListSize()<<std::endl;
+    std::cout<<"H6.head = "<<"("<<H6.GetHeadRootList()->GetKey()<<", "<<H6.GetHeadRootList()<<")"<<std::endl;
+    std::cout<<"H6.tail = "<<"("<<H6.GetTailRootList()->GetKey()<<", "<<H6.GetTailRootList()<<")"<<std::endl;
+    std::cout<<"H6.min_pointer = "<<"("<<H6.FindMin()->GetKey()<<", "<<H6.FindMin()<<")"<<std::endl;
+    if(searched_node != NULL){
+        std::cout<<"searched_node = "<<"("<<searched_node->GetKey()<<", "<<searched_node<<")"<<std::endl;
+    }else{
+        std::cout<<"Error : Search not found."<<std::endl;
+    }
     return EXIT_SUCCESS;
 }

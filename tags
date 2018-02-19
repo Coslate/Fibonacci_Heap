@@ -44,7 +44,9 @@ MAIN_OBJECT_NAME_MAIN	./Makefile	/^MAIN_OBJECT_NAME_MAIN = Fibonacci_Heap_main$/
 MAIN_OBJECT_SOURCE	./Makefile	/^MAIN_OBJECT_SOURCE = $(MAIN_OBJECT_NAME).cpp$/;"	m
 MAIN_OBJECT_SOURCE_MAIN	./Makefile	/^MAIN_OBJECT_SOURCE_MAIN = $(MAIN_OBJECT_NAME_MAIN).cpp$/;"	m
 PrintList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, std::queue<FTNode*> &parent_queue){$/;"	f	class:Fibonacci_Heap
+ReleaseRecur	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ReleaseRecur(FTNode* const current_node){$/;"	f	class:Fibonacci_Heap
 Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"	f	class:Fibonacci_Heap
+SearchRecur	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::SearchRecur(FTNode* const current_node, const int key){$/;"	f	class:Fibonacci_Heap
 SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){$/;"	f	class:Fibonacci_Heap
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
