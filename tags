@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddChildToRootList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::AddChildToRootList(){$/;"	f	class:Fibonacci_Heap
 BuildTestExample	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::BuildTestExample(){$/;"	f	class:Fibonacci_Heap
 CC	./Makefile	/^CC = g++$/;"	m
@@ -51,7 +51,7 @@ SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const 
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
-_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	/^#define _FIBONACCI_HEAP_H_$/;"	d
+_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
 child	./include/Fibonacci_Heap.h	/^        FTNode* child;$/;"	m	class:FTNode
 degree	./include/Fibonacci_Heap.h	/^        int     degree;$/;"	m	class:FTNode
 head_root_list	./include/Fibonacci_Heap.h	/^        FTNode* head_root_list;$/;"	m	class:Fibonacci_Heap
