@@ -419,7 +419,8 @@ void Fibonacci_Heap::HeapLink(FTNode* &y, FTNode* &x){
 }
 
 void Fibonacci_Heap::Consolidate(){
-    int size_of_arr = (log(total_node_num)/log(2)) + 1;
+    const double phi_self = (1.0+sqrt(5.0))/2.0;
+    int size_of_arr = (log(total_node_num)/log(phi_self)) + 1;
     FTNode** adjust_arr = new FTNode* [size_of_arr];
     FTNode* current_traverse_node = min_pointer;
     int start_pt = 0;
