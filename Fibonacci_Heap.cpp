@@ -627,8 +627,8 @@ bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){
     }
 
     if(changed_key > x->key){
-        std::cout<<"Error : New key is greater than current key at the node with address "<<x<<std::endl;
-        return false;
+        std::cout<<"Warning : New key is greater than current key at the node with address. No change."<<x<<std::endl;
+        return true;
     }
 
     x->key = changed_key;

@@ -20,7 +20,8 @@ class FTNode{
         FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
         FTNode(const int value) : key(value), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
         
-        inline int GetKey(){return key;};
+        inline int  GetKey(){return key;};
+        inline void SetKey(const int val){key = val;};
         friend class Fibonacci_Heap;
 };
 

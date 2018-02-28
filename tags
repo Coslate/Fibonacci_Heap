@@ -27,7 +27,7 @@ Fibonacci_Heap	./include/Fibonacci_Heap.h	/^        Fibonacci_Heap() : root_list
 Fibonacci_Heap	./include/Fibonacci_Heap.h	/^class Fibonacci_Heap{$/;"	c
 FindMin	./include/Fibonacci_Heap.h	/^        inline FTNode* FindMin(){if(min_pointer != NULL){return min_pointer;}else{std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;return NULL;}};$/;"	f	class:Fibonacci_Heap
 GetHeadRootList	./include/Fibonacci_Heap.h	/^        inline FTNode* GetHeadRootList(){return head_root_list;};$/;"	f	class:Fibonacci_Heap
-GetKey	./include/Fibonacci_Heap.h	/^        inline int GetKey(){return key;};$/;"	f	class:FTNode
+GetKey	./include/Fibonacci_Heap.h	/^        inline int  GetKey(){return key;};$/;"	f	class:FTNode
 GetRootListSize	./include/Fibonacci_Heap.h	/^        inline int     GetRootListSize(){return root_list_size;};$/;"	f	class:Fibonacci_Heap
 GetTailRootList	./include/Fibonacci_Heap.h	/^        inline FTNode* GetTailRootList(){return tail_root_list;};$/;"	f	class:Fibonacci_Heap
 GetTotalNodeNum	./include/Fibonacci_Heap.h	/^        inline int     GetTotalNodeNum(){return total_node_num;};$/;"	f	class:Fibonacci_Heap
@@ -47,6 +47,7 @@ PrintList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::PrintList(FTNode* const he
 ReleaseRecur	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ReleaseRecur(FTNode* const current_node){$/;"	f	class:Fibonacci_Heap
 Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"	f	class:Fibonacci_Heap
 SearchRecur	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::SearchRecur(FTNode* const current_node, const int key){$/;"	f	class:Fibonacci_Heap
+SetKey	./include/Fibonacci_Heap.h	/^        inline void SetKey(const int val){key = val;};$/;"	f	class:FTNode
 SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){$/;"	f	class:Fibonacci_Heap
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
