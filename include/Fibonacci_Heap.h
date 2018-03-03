@@ -1,27 +1,35 @@
 #ifndef _FIBONACCI_HEAP_H_
 #define _FIBONACCI_HEAP_H_
 #include <cstdlib>
+#include <string>
 #include <vector>
 #include <queue>
 
 class Fibonacci_Heap;
 
 class FTNode{
-        int     key;
-        int     degree;
-        bool    mark;
-        int     level;
-        FTNode* parent;
-        FTNode* child;
-        FTNode* right_sibling;
-        FTNode* left_sibling;
+        int             key;
+        int             degree;
+        bool            mark;
+        bool            is_exist;
+        int             level;
+        std::string     name;
+        FTNode*         parent;
+        FTNode*         child;
+        FTNode*         right_sibling;
+        FTNode*         left_sibling;
     public : 
-        FTNode() : key(0), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
-        FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
-        FTNode(const int value) : key(value), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode() : key(0), degree(0), mark(false), is_exist(true), level(0), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), is_exist(true), level(value4), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value) : key(value), degree(0), mark(false), is_exist(true), level(0), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
+        FTNode(const int value, const std::string name_val) : key(value), degree(0), mark(false), is_exist(true), level(0), name(name_val), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};
         
-        inline int  GetKey(){return key;};
-        inline void SetKey(const int val){key = val;};
+        inline int          GetKey(){return key;};
+        inline std::string  GetName(){return name;};
+        inline bool         GetExist(){return is_exist;};
+        inline void         SetKey(const int val){key = val;};
+        inline void         SetName(const std::string name_val){name = name_val;};
+        inline void         SetExist(const bool is_exist_val){is_exist = is_exist_val;};
         friend class Fibonacci_Heap;
 };
 

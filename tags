@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddChildToRootList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::AddChildToRootList(){$/;"	f	class:Fibonacci_Heap
 BuildTestExample	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::BuildTestExample(){$/;"	f	class:Fibonacci_Heap
 CC	./Makefile	/^CC = g++$/;"	m
@@ -19,15 +19,18 @@ DecreaseKey	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::DecreaseKey(FTNode* cons
 Delete	./Fibonacci_Heap.cpp	/^bool Fibonacci_Heap::Delete(FTNode* const x){$/;"	f	class:Fibonacci_Heap
 ExchangeNode	./include/Fibonacci_Heap.h	/^        inline void ExchangeNode(FTNode* &a, FTNode* &b){FTNode* tmp = a;a = b;b = tmp;};$/;"	f	class:Fibonacci_Heap
 ExtractMin	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::ExtractMin(){$/;"	f	class:Fibonacci_Heap
-FTNode	./include/Fibonacci_Heap.h	/^        FTNode() : key(0), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
-FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value) : key(value), degree(0), mark(false), level(0), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
-FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), level(value4), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
+FTNode	./include/Fibonacci_Heap.h	/^        FTNode() : key(0), degree(0), mark(false), is_exist(true), level(0), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
+FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value) : key(value), degree(0), mark(false), is_exist(true), level(0), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
+FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value, const std::string name_val) : key(value), degree(0), mark(false), is_exist(true), level(0), name(name_val), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
+FTNode	./include/Fibonacci_Heap.h	/^        FTNode(const int value1, const int value2, const bool value3, const int value4) : key(value1), degree(value2), mark(value3), is_exist(true), level(value4), name("NULL"), parent(NULL), child(NULL), right_sibling(this), left_sibling(this){};$/;"	f	class:FTNode
 FTNode	./include/Fibonacci_Heap.h	/^class FTNode{$/;"	c
 Fibonacci_Heap	./include/Fibonacci_Heap.h	/^        Fibonacci_Heap() : root_list_size(0), total_node_num(0), head_root_list(NULL), tail_root_list(NULL), min_pointer(NULL){};$/;"	f	class:Fibonacci_Heap
 Fibonacci_Heap	./include/Fibonacci_Heap.h	/^class Fibonacci_Heap{$/;"	c
 FindMin	./include/Fibonacci_Heap.h	/^        inline FTNode* FindMin(){if(min_pointer != NULL){return min_pointer;}else{std::cout<<"Error : The Fibonacci_Heap is empty."<<std::endl;return NULL;}};$/;"	f	class:Fibonacci_Heap
+GetExist	./include/Fibonacci_Heap.h	/^        inline bool         GetExist(){return is_exist;};$/;"	f	class:FTNode
 GetHeadRootList	./include/Fibonacci_Heap.h	/^        inline FTNode* GetHeadRootList(){return head_root_list;};$/;"	f	class:Fibonacci_Heap
-GetKey	./include/Fibonacci_Heap.h	/^        inline int  GetKey(){return key;};$/;"	f	class:FTNode
+GetKey	./include/Fibonacci_Heap.h	/^        inline int          GetKey(){return key;};$/;"	f	class:FTNode
+GetName	./include/Fibonacci_Heap.h	/^        inline std::string  GetName(){return name;};$/;"	f	class:FTNode
 GetRootListSize	./include/Fibonacci_Heap.h	/^        inline int     GetRootListSize(){return root_list_size;};$/;"	f	class:Fibonacci_Heap
 GetTailRootList	./include/Fibonacci_Heap.h	/^        inline FTNode* GetTailRootList(){return tail_root_list;};$/;"	f	class:Fibonacci_Heap
 GetTotalNodeNum	./include/Fibonacci_Heap.h	/^        inline int     GetTotalNodeNum(){return total_node_num;};$/;"	f	class:Fibonacci_Heap
@@ -47,23 +50,28 @@ PrintList	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::PrintList(FTNode* const he
 ReleaseRecur	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::ReleaseRecur(FTNode* const current_node){$/;"	f	class:Fibonacci_Heap
 Search	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::Search(const int key){$/;"	f	class:Fibonacci_Heap
 SearchRecur	./Fibonacci_Heap.cpp	/^FTNode* Fibonacci_Heap::SearchRecur(FTNode* const current_node, const int key){$/;"	f	class:Fibonacci_Heap
-SetKey	./include/Fibonacci_Heap.h	/^        inline void SetKey(const int val){key = val;};$/;"	f	class:FTNode
+SetExist	./include/Fibonacci_Heap.h	/^        inline void         SetExist(const bool is_exist_val){is_exist = is_exist_val;};$/;"	f	class:FTNode
+SetKey	./include/Fibonacci_Heap.h	/^        inline void         SetKey(const int val){key = val;};$/;"	f	class:FTNode
+SetName	./include/Fibonacci_Heap.h	/^        inline void         SetName(const std::string name_val){name = name_val;};$/;"	f	class:FTNode
 SetNodeMap	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::SetNodeMap(FTNode* const current_child_node, const int depth, std::vector<FTNode*>* &node_map){$/;"	f	class:Fibonacci_Heap
 Traverse	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Traverse(const int print_width, const bool debug){$/;"	f	class:Fibonacci_Heap
 Union	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::Union(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
 UpdateMinPtr	./Fibonacci_Heap.cpp	/^void Fibonacci_Heap::UpdateMinPtr(Fibonacci_Heap &H_in){$/;"	f	class:Fibonacci_Heap
-_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	2;"	d
-child	./include/Fibonacci_Heap.h	/^        FTNode* child;$/;"	m	class:FTNode
-degree	./include/Fibonacci_Heap.h	/^        int     degree;$/;"	m	class:FTNode
+_FIBONACCI_HEAP_H_	./include/Fibonacci_Heap.h	/^#define _FIBONACCI_HEAP_H_$/;"	d
+child	./include/Fibonacci_Heap.h	/^        FTNode*         child;$/;"	m	class:FTNode
+degree	./include/Fibonacci_Heap.h	/^        int             degree;$/;"	m	class:FTNode
 head_root_list	./include/Fibonacci_Heap.h	/^        FTNode* head_root_list;$/;"	m	class:Fibonacci_Heap
-key	./include/Fibonacci_Heap.h	/^        int     key;$/;"	m	class:FTNode
-left_sibling	./include/Fibonacci_Heap.h	/^        FTNode* left_sibling;$/;"	m	class:FTNode
-level	./include/Fibonacci_Heap.h	/^        int     level;$/;"	m	class:FTNode
+is_exist	./include/Fibonacci_Heap.h	/^        bool            is_exist;$/;"	m	class:FTNode
+key	./include/Fibonacci_Heap.h	/^        int             key;$/;"	m	class:FTNode
+left_sibling	./include/Fibonacci_Heap.h	/^        FTNode*         left_sibling;$/;"	m	class:FTNode
+level	./include/Fibonacci_Heap.h	/^        int             level;$/;"	m	class:FTNode
 main	./Fibonacci_Heap_main.cpp	/^int main(){$/;"	f
-mark	./include/Fibonacci_Heap.h	/^        bool    mark;$/;"	m	class:FTNode
+main	./test.cpp	/^int main(){$/;"	f
+mark	./include/Fibonacci_Heap.h	/^        bool            mark;$/;"	m	class:FTNode
 min_pointer	./include/Fibonacci_Heap.h	/^        FTNode* min_pointer;$/;"	m	class:Fibonacci_Heap
-parent	./include/Fibonacci_Heap.h	/^        FTNode* parent;$/;"	m	class:FTNode
-right_sibling	./include/Fibonacci_Heap.h	/^        FTNode* right_sibling;$/;"	m	class:FTNode
+name	./include/Fibonacci_Heap.h	/^        std::string     name;$/;"	m	class:FTNode
+parent	./include/Fibonacci_Heap.h	/^        FTNode*         parent;$/;"	m	class:FTNode
+right_sibling	./include/Fibonacci_Heap.h	/^        FTNode*         right_sibling;$/;"	m	class:FTNode
 root_list_size	./include/Fibonacci_Heap.h	/^        int root_list_size;$/;"	m	class:Fibonacci_Heap
 tail_root_list	./include/Fibonacci_Heap.h	/^        FTNode* tail_root_list;$/;"	m	class:Fibonacci_Heap
 total_node_num	./include/Fibonacci_Heap.h	/^        int total_node_num;$/;"	m	class:Fibonacci_Heap

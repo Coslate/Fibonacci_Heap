@@ -9,7 +9,7 @@
 #include <Fibonacci_Heap.h>
 
 Fibonacci_Heap::~Fibonacci_Heap(){
-    std::cout<<"It is destructor."<<std::endl;
+    std::cout<<"It is Fibonacci_Heap destructor."<<std::endl;
     FTNode* current_traverse_node = head_root_list;
     int start_pt = 0;
 
@@ -263,9 +263,9 @@ void Fibonacci_Heap::PrintList(FTNode* const head_ptr, const int print_width, st
 
     while(((current_traverse_node != head_ptr) || (start_pt == 0)) && (head_ptr != NULL)){
         if(current_traverse_node->right_sibling == head_ptr){
-            printf("(%-*d, %-p, %-*d, %-*s)\n", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree, print_width, current_traverse_node->mark ? "True":"False");
+            printf("(%-*d, %-p, %-*d, %-*s, %-*s, %-*s)\n", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree, print_width, current_traverse_node->mark ? "True":"False", print_width, current_traverse_node->name.c_str(), print_width, current_traverse_node->is_exist ? "True":"False");
         }else{
-            printf("(%-*d, %-p, %-*d, %-*s)--", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree, print_width, current_traverse_node->mark ? "True":"False");
+            printf("(%-*d, %-p, %-*d, %-*s, %-*s, %-*s)--", print_width,  current_traverse_node->key, current_traverse_node, print_width, current_traverse_node->degree, print_width, current_traverse_node->mark ? "True":"False", print_width, current_traverse_node->name.c_str(), print_width, current_traverse_node->is_exist ? "True":"False");
         }
 
         if(start_pt == 0){
@@ -294,7 +294,7 @@ void Fibonacci_Heap::Traverse(const int print_width, const bool debug){
         std::cout<<"##################################"<<std::endl;
         std::cout<<"#########      F"<<i<<"      ###########"<<std::endl;
         std::cout<<"##################################"<<std::endl;
-        printf("(%-*d, %-p, %-*d, %-*s)\n", print_width,  node_map[0][i]->key, node_map[0][i], print_width, node_map[0][i]->degree, print_width, node_map[0][i]->mark ? "True":"False");
+        printf("(%-*d, %-p, %-*d, %-*s, %-*s, %-*s)\n", print_width,  node_map[0][i]->key, node_map[0][i], print_width, node_map[0][i]->degree, print_width, node_map[0][i]->mark ? "True":"False", print_width, node_map[0][i]->name.c_str(), print_width, node_map[0][i]->is_exist ? "True":"False");
 
         parent_queue.push(node_map[0][i]);
         while(!parent_queue.empty()){
@@ -305,7 +305,7 @@ void Fibonacci_Heap::Traverse(const int print_width, const bool debug){
                     std::cout<<"-------------------------------------"<<std::endl;
                     ++depth_grad;
                 }
-                printf("(%-*d, %-p, %-*d, %-*s)--> ", print_width,  current_parent->key, current_parent, print_width, current_parent->degree, print_width, current_parent->mark ? "True":"False");
+                printf("(%-*d, %-p, %-*d, %-*s, %-*s, %-*s)--> ", print_width,  current_parent->key, current_parent, print_width, current_parent->degree, print_width, current_parent->mark ? "True":"False", print_width, current_parent->name.c_str(), print_width, current_parent->is_exist ? "True":"False");
                 PrintList(current_parent->child, print_width, parent_queue);
             }
             parent_queue.pop();
@@ -369,6 +369,7 @@ void Fibonacci_Heap::InsertArbitrary(FTNode* const inserted_node){
     }
     ++root_list_size;
     ++total_node_num;
+    inserted_node->is_exist = true;
 }
 
 void Fibonacci_Heap::AddChildToRootList(){
@@ -508,6 +509,8 @@ FTNode* Fibonacci_Heap::ExtractMin(){
         ret_ptr->left_sibling = ret_ptr;
         ret_ptr->child = NULL; 
     }
+
+    ret_ptr->is_exist = false;
     return ret_ptr;
 }
 
@@ -628,6 +631,9 @@ bool Fibonacci_Heap::DecreaseKey(FTNode* const x, const int changed_key){
 
     if(changed_key > x->key){
         std::cout<<"Warning : New key is greater than current key at the node with address. No change."<<x<<std::endl;
+        return true;
+    }else if(x->is_exist == false){
+        std::cout<<"Warning : The node with the address does not exist in the Fibonacci_Heap. No change."<<x<<std::endl;
         return true;
     }
 
