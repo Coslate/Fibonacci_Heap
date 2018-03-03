@@ -66,7 +66,6 @@ key	./include/Fibonacci_Heap.h	/^        int             key;$/;"	m	class:FTNode
 left_sibling	./include/Fibonacci_Heap.h	/^        FTNode*         left_sibling;$/;"	m	class:FTNode
 level	./include/Fibonacci_Heap.h	/^        int             level;$/;"	m	class:FTNode
 main	./Fibonacci_Heap_main.cpp	/^int main(){$/;"	f
-main	./test.cpp	/^int main(){$/;"	f
 mark	./include/Fibonacci_Heap.h	/^        bool            mark;$/;"	m	class:FTNode
 min_pointer	./include/Fibonacci_Heap.h	/^        FTNode* min_pointer;$/;"	m	class:Fibonacci_Heap
 name	./include/Fibonacci_Heap.h	/^        std::string     name;$/;"	m	class:FTNode
